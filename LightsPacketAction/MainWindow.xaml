@@ -92,14 +92,6 @@
                                                             </Grid>
                                                         </Button.Content>
                                                     </Button>
-                                                    <Button x:Name="Maximize" Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}" ToolTip="maximize" Style="{StaticResource WindowButtonStyle}">
-                                                        <Button.Content>
-                                                            <Grid Width="31" Height="25">
-                                                                <Path Data="M0,1 L9,1 L9,8 L0,8 Z" Width="9" Height="8" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                            Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" StrokeThickness="2"  />
-                                                            </Grid>
-                                                        </Button.Content>
-                                                    </Button>
                                                 </Grid>
                                                 <Button Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}" ToolTip="close"  Style="{StaticResource WindowButtonStyle}">
                                                     <Button.Content>
@@ -122,15 +114,6 @@
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="WindowState" Value="Maximized">
-                                <Setter TargetName="Maximize" Property="Visibility" Value="Collapsed" />
-                                <Setter TargetName="Restore" Property="Visibility" Value="Visible" />
-                                <Setter TargetName="LayoutRoot" Property="Margin" Value="7" />
-                            </Trigger>
-                            <Trigger Property="WindowState" Value="Normal">
-                                <Setter TargetName="Maximize" Property="Visibility" Value="Visible" />
-                                <Setter TargetName="Restore" Property="Visibility" Value="Collapsed" />
-                            </Trigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
                                     <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
