@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LightsPacketAction"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="600">
+        Style="{DynamicResource MainWindowStyle}"
+        Title="LightsPacketAction" Width="600" Height="600">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="bool2VisibilityConverter" />
 
@@ -52,7 +53,7 @@
             </Setter>
         </Style>
 
-        <Style x:Key="MainWindowStyle" TargetType="local:MainWindow">
+        <Style x:Key="MainWindowStyle" TargetType="Window">
             <Setter Property="Foreground" Value="{DynamicResource ForegroundColorBrush}" />
             <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
             <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
