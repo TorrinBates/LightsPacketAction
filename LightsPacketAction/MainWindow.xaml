@@ -12,10 +12,12 @@
 
         <Color x:Key="WindowBackgroundColor">#FF2D2D30</Color>
         <Color x:Key="HighlightColor">#FF3F3F41</Color>
-        <Color x:Key="ForegroundColor">#FFF4F4F5</Color>
+        <Color x:Key="BlueColor">#FF007ACC</Color>
+        <Color x:Key="ForegroundColor">#ED1C24</Color>
 
         <SolidColorBrush x:Key="WindowBackgroundColorBrush" Color="{StaticResource WindowBackgroundColor}"/>
         <SolidColorBrush x:Key="HighlightColorBrush" Color="{StaticResource HighlightColor}"/>
+        <SolidColorBrush x:Key="BlueColorBrush" Color="{StaticResource BlueColor}"/>
         <SolidColorBrush x:Key="ForegroundColorBrush" Color="{StaticResource ForegroundColor}"/>
 
         <Style x:Key="WindowButtonStyle" TargetType="{x:Type Button}">
@@ -38,6 +40,9 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="{StaticResource HighlightColorBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource BlueColorBrush}" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter TargetName="contentPresenter" Property="Opacity" Value=".5" />
@@ -100,15 +105,16 @@
                                             <TextBlock x:Name="WindowTitleTextBlock" Grid.Row="0" Text="{TemplateBinding Title}" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" VerticalAlignment="Center"  Margin="8 -1 0 0"  FontSize="16"  Foreground="{TemplateBinding Foreground}"/>
                                             <Grid Grid.Row="2">
                                                 <Path x:Name="ResizeGrip" Visibility="Collapsed" Width="12" Height="12" Margin="1" HorizontalAlignment="Right"
-                                                      StrokeThickness="1" Stretch="None" Data="F1 M1,10 L3,10 M5,10 L7,10 M9,10 L11,10 M2,9 L2,11 M6,9 L6,11 M10,9 L10,11 M5,6 L7,6 M9,6 L11,6 M6,5 L6,7 M10,5 L10,7 M9,2 L11,2 M10,1 L10,3" />
+                                        Stroke="{StaticResource BlueColorBrush}" StrokeThickness="1" Stretch="None" Data="F1 M1,10 L3,10 M5,10 L7,10 M9,10 L11,10 M2,9 L2,11 M6,9 L6,11 M10,9 L10,11 M5,6 L7,6 M9,6 L11,6 M6,5 L6,7 M10,5 L10,7 M9,2 L11,2 M10,1 L10,3" />
                                             </Grid>
                                         </Grid>
                                     </AdornerDecorator>
                                 </Border>
-                                
+                                <Border BorderBrush="{StaticResource BlueColorBrush}" BorderThickness="1" Visibility="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource bool2VisibilityConverter}}" />
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
+        
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
                                     <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
