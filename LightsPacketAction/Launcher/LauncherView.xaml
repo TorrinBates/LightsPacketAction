@@ -35,8 +35,8 @@
         <DockPanel>
             <StackPanel DockPanel.Dock="Left">
                 <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#ED1C24" Text="Server Name/IP:"/>
-                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#ED1C24" Text="Port:"/>
-                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#ED1C24" Text="Overlay:"/>
+                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#ED1C24" Text="Destination Port:"/>
+                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#ED1C24" Text="Image Overlay:"/>
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Left">
