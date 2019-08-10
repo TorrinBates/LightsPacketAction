@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace LightsPacketAction
 {
-    public class MainWindowViewModel
+    public class LauncherViewModel
     {
-        public MainWindowViewModel()
-        {
-
-        }
     }
 }

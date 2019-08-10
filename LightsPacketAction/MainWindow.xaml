@@ -119,11 +119,5 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="47*"/>
-            <ColumnDefinition Width="349*"/>
-        </Grid.ColumnDefinitions>
-
-    </Grid>
+    <local:LauncherView/>
 </Window>

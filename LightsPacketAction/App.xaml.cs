@@ -11,8 +11,6 @@ namespace LightsPacketAction
         public void AppStartup(object sender, StartupEventArgs e)
         {
             _window = new MainWindow();
-            _window.DataContext = new MainWindowViewModel();
-
             _window.Show();
         }
     }
