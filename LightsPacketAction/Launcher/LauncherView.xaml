@@ -40,11 +40,15 @@
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Left">
-                <TextBox Margin="0,0,0,10" BorderBrush="#1D1D1D" Height="19" Width="300" Foreground="#c5c5c7" Background="#3F3F46"></TextBox>
-                <TextBox Margin="0,0,0,10" BorderBrush="#1D1D1D" Height="19" Width="300" Foreground="#c5c5c7" Background="#3F3F46"></TextBox>
+                <TextBox Margin="0,0,0,10" BorderBrush="#1D1D1D" Height="19" Width="300" Foreground="#c5c5c7" 
+                         Background="#3F3F46" Text="{Binding ServerAddress}"></TextBox>
+                <TextBox Margin="0,0,0,10" BorderBrush="#1D1D1D" Height="19" Width="300" Foreground="#c5c5c7" 
+                         Background="#3F3F46" Text="{Binding ServerPort}"></TextBox>
                 <DockPanel Width="300">
-                    <TextBox DockPanel.Dock="Left" Margin="0,0,6,0" Width="240" BorderBrush="#1D1D1D" Height="19" Foreground="#c5c5c7" Background="#3F3F46"></TextBox>
-                    <Button Height="19">Browse</Button>
+                    <TextBox DockPanel.Dock="Left" Margin="0,0,6,0" Width="240" 
+                             BorderBrush="#1D1D1D" Height="19" Foreground="#c5c5c7" Background="#3F3F46"
+                             Text="{Binding OverlayImagePath}"/>
+                    <Button Height="19" Command="{Binding BrowseOverlayImageCommand}">Browse</Button>
                 </DockPanel>
             </StackPanel>
         </DockPanel>

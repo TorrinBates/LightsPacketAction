@@ -4,12 +4,28 @@ using System.Windows.Input;
 
 namespace LightsPacketAction
 {
-    public class LauncherViewModel
+    public class LauncherViewModel : ViewModelBase
     {
-        public string ServerAddress { get; set; }
-        public string ServerPort { get; set; }
-        public string OverlayImagePath { get; set; }
+        private string _address;
+        public string ServerAddress
+        {
+            get { return _address; }
+            set { _address = value; OnPropertyChanged("ServerAddress"); }
+        }
 
+        private string _port;
+        public string ServerPort
+        {
+            get { return _port; }
+            set { _port = value; OnPropertyChanged("ServerPort"); }
+        }
+
+        private string _overlayImagePath;
+        public string OverlayImagePath
+        {
+            get { return _overlayImagePath; }
+            set { _overlayImagePath = value; OnPropertyChanged("OverlayImagePath"); }
+        }
         public ICommand BrowseOverlayImageCommand { get; private set; }
         public ICommand LaunchDisplayCommand { get; private set; }
 
@@ -19,7 +35,7 @@ namespace LightsPacketAction
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Multiselect = false;
                 openFileDialog.Title = "Select Image to Overlay";
-                openFileDialog.Filter = "*.jpg | *.jpeg";
+                openFileDialog.Filter = "JPEG Files: (*.JPG;*.JPEG;*.JPE;*.JFIF)|*.JPG;*.JPEG;*.JPE;*.JFIF";
 
                 if (openFileDialog.ShowDialog() == true)
                     OverlayImagePath = openFileDialog.FileName;
