@@ -10,11 +10,13 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="bool2VisibilityConverter" />
 
-        <Color x:Key="WindowBackgroundColor">#FF2D2D30</Color>
+        <Color x:Key="WindowHeaderColor">#1D1D1D</Color>
+        <Color x:Key="WindowBackgroundColor">#2D2D30</Color>
         <Color x:Key="HighlightColor">#FF3F3F41</Color>
         <Color x:Key="BlueColor">#FF007ACC</Color>
         <Color x:Key="ForegroundColor">#ED1C24</Color>
 
+        <SolidColorBrush x:Key="WindowHeaderColorBrush" Color="{StaticResource WindowHeaderColor}"/>
         <SolidColorBrush x:Key="WindowBackgroundColorBrush" Color="{StaticResource WindowBackgroundColor}"/>
         <SolidColorBrush x:Key="HighlightColorBrush" Color="{StaticResource HighlightColor}"/>
         <SolidColorBrush x:Key="BlueColorBrush" Color="{StaticResource BlueColor}"/>
@@ -68,16 +70,16 @@
                                     <AdornerDecorator>
                                         <Grid x:Name="LayoutRoot">
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="30" />
                                                 <RowDefinition Height="*" />
                                                 <RowDefinition Height="15" />
                                             </Grid.RowDefinitions>
                                             <ContentPresenter Grid.Row="1" Grid.RowSpan="2" Margin="7"/>
-                                            <Rectangle x:Name="HeaderBackground" Height="25" Fill="{DynamicResource WindowBackgroundColorBrush}" VerticalAlignment="Top" Grid.Row="0"/>
+                                            <Rectangle x:Name="HeaderBackground" Height="30" Fill="{DynamicResource WindowHeaderColorBrush}" VerticalAlignment="Top" Grid.Row="0"/>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" WindowChrome.IsHitTestVisibleInChrome="True" Grid.Row="0">
                                                 <Button Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}" ToolTip="minimize" Style="{StaticResource WindowButtonStyle}">
                                                     <Button.Content>
-                                                        <Grid Width="30" Height="25" RenderTransform="1,0,0,1,0,1">
+                                                        <Grid Width="30" Height="30" RenderTransform="1,0,0,1,0,1">
                                                             <Path Data="M0,6 L8,6 Z" Width="8" Height="7" VerticalAlignment="Center" HorizontalAlignment="Center"
                                                         Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" StrokeThickness="2"  />
                                                         </Grid>
@@ -86,7 +88,7 @@
                                                 <Grid Margin="1,0,1,0">
                                                     <Button x:Name="Restore" Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}" ToolTip="restore" Visibility="Collapsed" Style="{StaticResource WindowButtonStyle}">
                                                         <Button.Content>
-                                                            <Grid Width="30" Height="25" UseLayoutRounding="True" RenderTransform="1,0,0,1,.5,.5">
+                                                            <Grid Width="30" Height="30" UseLayoutRounding="True" RenderTransform="1,0,0,1,.5,.5">
                                                                 <Path Data="M2,0 L8,0 L8,6 M0,3 L6,3 M0,2 L6,2 L6,8 L0,8 Z" Width="8" Height="8" VerticalAlignment="Center" HorizontalAlignment="Center"
                                                             Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" StrokeThickness="1"  />
                                                             </Grid>
