@@ -13,7 +13,7 @@ namespace LightsPacketAction
             _execute = execute;
         }
 
-        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
+        public RelayCommand(Predicate<object> canExecute, Action<object> execute)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute");

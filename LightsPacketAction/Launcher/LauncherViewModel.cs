@@ -6,25 +6,25 @@ namespace LightsPacketAction
 {
     public class LauncherViewModel : ViewModelBase
     {
-        private string _address;
+        private string _address = "";
         public string ServerAddress
         {
             get { return _address; }
             set { _address = value; OnPropertyChanged("ServerAddress"); }
         }
 
-        private string _port;
+        private string _port = "";
         public string ServerPort
         {
             get { return _port; }
             set { _port = value; OnPropertyChanged("ServerPort"); }
         }
 
-        private string _overlayImagePath;
+        private string _overlayImagePath = "";
         public string OverlayImagePath
         {
             get { return _overlayImagePath; }
-            set { _overlayImagePath = value; OnPropertyChanged("OverlayImagePath"); }
+            set { _overlayImagePath = value;  OnPropertyChanged("OverlayImagePath"); }
         }
         public ICommand BrowseOverlayImageCommand { get; private set; }
         public ICommand LaunchDisplayCommand { get; private set; }
@@ -41,9 +41,12 @@ namespace LightsPacketAction
                     OverlayImagePath = openFileDialog.FileName;
             });
 
-            LaunchDisplayCommand = new RelayCommand((p) => {
-                Console.WriteLine("Not Implemented");
-            });
+            LaunchDisplayCommand = new RelayCommand(
+                (p) => OverlayImagePath != "" && ServerPort != "" && ServerAddress != "",
+                (p) => {
+                    Console.WriteLine("Not Implemented");
+                }
+            );
         }
     }
 }

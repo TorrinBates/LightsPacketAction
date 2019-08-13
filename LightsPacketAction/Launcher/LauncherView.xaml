@@ -8,15 +8,14 @@
 
     <UserControl.Resources>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="#ED1C24"></Setter>
-            <Setter Property="Foreground" Value="#1D1D1D"></Setter>
+            <Setter Property="Background" Value="#ED1C24"/>
+            <Setter Property="Foreground" Value="#1D1D1D"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Name="border" BorderThickness="1" CornerRadius="2" BorderBrush="#1D1D1D" Background="#ED1C24">
                             <Grid >
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Name="contentShadow">
-                                </ContentPresenter>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Name="contentShadow"/>
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -71,11 +70,19 @@
                     <TextBox DockPanel.Dock="Left" Margin="0,0,6,0" Width="240" 
                              BorderBrush="#1D1D1D" Height="19" Foreground="#c5c5c7" Background="#3F3F46"
                              Text="{Binding OverlayImagePath}"/>
-                    <Button Height="19" Command="{Binding BrowseOverlayImageCommand}">
-                        <TextBlock Foreground="#1D1D1D">Browse...</TextBlock>
+                    <Button Foreground="#1D1D1D" Height="19" Command="{Binding BrowseOverlayImageCommand}">
+                        Browse...
                     </Button>
                 </DockPanel>
             </StackPanel>
         </DockPanel>
+        <Grid Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Margin="15,0" Width="90" Height="25" HorizontalAlignment="Right">Index</Button>
+            <Button Command="{Binding LaunchDisplayCommand}" Margin="15,0" Grid.Column="1" Width="90" Height="25" HorizontalAlignment="Left">Launch</Button>
+        </Grid>
     </StackPanel>
 </UserControl>
