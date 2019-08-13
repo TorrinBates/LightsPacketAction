@@ -63,7 +63,9 @@ namespace LightsPacketAction
                 }
             );
 
-            IndexScreenCommand = new RelayCommand((p) => {
+            IndexScreenCommand = new RelayCommand(
+                (p) => OverlayImagePath != "" && ServerPort != "" && ServerAddress != "", 
+                (p) => {
                 CustomWindow window = new CustomWindow(null, "Index");
                 window.MinimizeVisibility = Visibility.Collapsed;
                 window.Height = 600;

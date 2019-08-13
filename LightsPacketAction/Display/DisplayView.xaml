@@ -29,7 +29,7 @@
     <Grid>
         <StackPanel>
             <Button Height="500" Width="500">
-                <Button.ToolTip>Button1</Button.ToolTip>
+                <Button.ToolTip>Button 1</Button.ToolTip>
             </Button>
         </StackPanel>
     </Grid>
