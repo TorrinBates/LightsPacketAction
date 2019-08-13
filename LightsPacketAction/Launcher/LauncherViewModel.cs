@@ -55,6 +55,8 @@ namespace LightsPacketAction
                     window.WindowStyle = WindowStyle.None;
                     window.Content = new DisplayViewModel();
 
+                    window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => window.Close()), Key.Escape, ModifierKeys.None));
+
                     window.Background = new ImageBrush(new BitmapImage(new Uri(OverlayImagePath)));
 
                     window.ShowDialog();
