@@ -109,5 +109,5 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <ContentControl Content="{Binding WindowContentViewModel}" />
+    <ContentControl Focusable="False" Content="{Binding WindowContentViewModel}" />
 </Window>

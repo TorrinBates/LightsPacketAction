@@ -53,6 +53,7 @@ namespace LightsPacketAction
                     window.ResizeMode = ResizeMode.NoResize;
                     window.WindowState = WindowState.Maximized;
                     window.WindowStyle = WindowStyle.None;
+                    window.Content = new DisplayViewModel();
 
                     window.Background = new ImageBrush(new BitmapImage(new Uri(OverlayImagePath)));
 
