@@ -54,6 +54,8 @@ namespace LightsPacketAction
                 CustomWindow window = new CustomWindow(null);
                 window.MinimizeVisibility = Visibility.Collapsed;
                 window.Title = "Index";
+                window.Height = 600;
+                window.Width = 600;
                 window.Owner = Application.Current.MainWindow;
 
                 window.ShowDialog();
