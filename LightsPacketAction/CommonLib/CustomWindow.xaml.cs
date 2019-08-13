@@ -18,11 +18,18 @@ namespace LightsPacketAction
             this.CommandBindings.Add(new CommandBinding(SystemCommands.RestoreWindowCommand, this.OnRestoreWindow, this.OnCanResizeWindow));
 
             InitializeComponent();
+
+            CenterWindowOnScreen();
         }
 
         public ViewModelBase WindowContentViewModel { get; private set; }
 
         public Visibility MinimizeVisibility { get; set; } = Visibility.Visible;
+
+        public void CenterWindowOnScreen() {
+            Left = (SystemParameters.PrimaryScreenWidth / 2) - (Width / 2);
+            Top = (SystemParameters.PrimaryScreenHeight / 2) - (Height / 2);
+        }
 
         private void OnCanResizeWindow(object sender, CanExecuteRoutedEventArgs e)
         {
