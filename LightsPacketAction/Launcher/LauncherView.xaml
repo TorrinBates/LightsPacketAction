@@ -23,6 +23,9 @@
                                 <Setter TargetName="border" Property="BorderBrush" Value="#1D1D1D" />
                                 <Setter TargetName="border" Property="Background" Value="#c5c5c7" />
                             </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#3F3F46"/>
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
