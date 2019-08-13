@@ -2,6 +2,8 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace LightsPacketAction
 {
@@ -46,7 +48,15 @@ namespace LightsPacketAction
             LaunchDisplayCommand = new RelayCommand(
                 (p) => OverlayImagePath != "" && ServerPort != "" && ServerAddress != "",
                 (p) => {
-                    Console.WriteLine("Not Implemented");
+                    var window = new Window();
+                    window.Owner = Application.Current.MainWindow;
+                    window.ResizeMode = ResizeMode.NoResize;
+                    window.WindowState = WindowState.Maximized;
+                    window.WindowStyle = WindowStyle.None;
+
+                    window.Background = new ImageBrush(new BitmapImage(new Uri(OverlayImagePath)));
+
+                    window.ShowDialog();
                 }
             );
 
@@ -56,7 +66,7 @@ namespace LightsPacketAction
                 window.Height = 600;
                 window.Width = 600;
                 window.Owner = Application.Current.MainWindow;
-
+                
                 window.ShowDialog();
             });
         }
