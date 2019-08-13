@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace LightsPacketAction
@@ -28,6 +29,7 @@ namespace LightsPacketAction
         }
         public ICommand BrowseOverlayImageCommand { get; private set; }
         public ICommand LaunchDisplayCommand { get; private set; }
+        public ICommand IndexScreenCommand { get; private set; }
 
         public LauncherViewModel()
         {
@@ -47,6 +49,15 @@ namespace LightsPacketAction
                     Console.WriteLine("Not Implemented");
                 }
             );
+
+            IndexScreenCommand = new RelayCommand((p) => {
+                CustomWindow window = new CustomWindow(null);
+                window.MinimizeVisibility = Visibility.Collapsed;
+                window.Title = "Index";
+                window.Owner = Application.Current.MainWindow;
+
+                window.ShowDialog();
+            });
         }
     }
 }

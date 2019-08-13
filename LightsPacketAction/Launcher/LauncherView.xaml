@@ -84,7 +84,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Margin="15,0" Width="90" Height="25" HorizontalAlignment="Right">Index</Button>
+            <Button Command="{Binding IndexScreenCommand}" Margin="15,0" Width="90" Height="25" HorizontalAlignment="Right">Index</Button>
             <Button Command="{Binding LaunchDisplayCommand}" Margin="15,0" Grid.Column="1" Width="90" Height="25" HorizontalAlignment="Left">Launch</Button>
         </Grid>
     </StackPanel>

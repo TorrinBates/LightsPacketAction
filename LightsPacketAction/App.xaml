@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:LightsPacketAction"
              Startup="AppStartup">
     <Application.Resources>
-         
+        <ResourceDictionary Source="ViewModelAssociations.xaml"/>
     </Application.Resources>
 </Application>

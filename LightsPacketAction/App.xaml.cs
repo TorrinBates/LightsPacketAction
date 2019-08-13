@@ -7,10 +7,10 @@ namespace LightsPacketAction
     /// </summary>
     public partial class App : Application
     {
-        private MainWindow _window;
+        private CustomWindow _window;
         public void AppStartup(object sender, StartupEventArgs e)
         {
-            _window = new MainWindow();
+            _window = new CustomWindow(new LauncherViewModel());
             _window.Show();
         }
     }

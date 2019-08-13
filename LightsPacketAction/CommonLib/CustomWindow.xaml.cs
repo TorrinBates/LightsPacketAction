@@ -6,16 +6,23 @@ namespace LightsPacketAction
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CustomWindow : Window
     {
-        public MainWindow()
+        public CustomWindow(ViewModelBase vm)
         {
+            WindowContentViewModel = vm;
+            DataContext = this;
+
             this.CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand, this.OnCloseWindow));
             this.CommandBindings.Add(new CommandBinding(SystemCommands.MinimizeWindowCommand, this.OnMinimizeWindow, this.OnCanMinimizeWindow));
             this.CommandBindings.Add(new CommandBinding(SystemCommands.RestoreWindowCommand, this.OnRestoreWindow, this.OnCanResizeWindow));
 
             InitializeComponent();
         }
+
+        public ViewModelBase WindowContentViewModel { get; private set; }
+
+        public Visibility MinimizeVisibility { get; set; } = Visibility.Visible;
 
         private void OnCanResizeWindow(object sender, CanExecuteRoutedEventArgs e)
         {
