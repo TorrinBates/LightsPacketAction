@@ -63,13 +63,13 @@
 
             <StackPanel DockPanel.Dock="Left">
                 <TextBox Margin="0,0,0,10" BorderBrush="#1D1D1D" Height="19" Width="300" Foreground="#c5c5c7" 
-                         Background="#3F3F46" Text="{Binding ServerAddress}"></TextBox>
+                         Background="#3F3F46" Text="{Binding ServerAddress, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <TextBox Margin="0,0,0,10" BorderBrush="#1D1D1D" Height="19" Width="300" Foreground="#c5c5c7" 
-                         Background="#3F3F46" Text="{Binding ServerPort}"></TextBox>
+                         Background="#3F3F46" Text="{Binding ServerPort, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <DockPanel Width="300">
                     <TextBox DockPanel.Dock="Left" Margin="0,0,6,0" Width="240" 
                              BorderBrush="#1D1D1D" Height="19" Foreground="#c5c5c7" Background="#3F3F46"
-                             Text="{Binding OverlayImagePath}"/>
+                             Text="{Binding OverlayImagePath, UpdateSourceTrigger=PropertyChanged}"/>
                     <Button Foreground="#1D1D1D" Height="19" Command="{Binding BrowseOverlayImageCommand}">
                         Browse...
                     </Button>
