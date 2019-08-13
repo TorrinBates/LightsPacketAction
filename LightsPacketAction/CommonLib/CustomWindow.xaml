@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
         Style="{DynamicResource MainWindowStyle}"
-        Title="Lights Packet Action" Width="430" Height="185">
+        Width="430" Height="185">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="bool2VisibilityConverter" />
 

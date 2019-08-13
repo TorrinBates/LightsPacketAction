@@ -51,9 +51,8 @@ namespace LightsPacketAction
             );
 
             IndexScreenCommand = new RelayCommand((p) => {
-                CustomWindow window = new CustomWindow(null);
+                CustomWindow window = new CustomWindow(null, "Index");
                 window.MinimizeVisibility = Visibility.Collapsed;
-                window.Title = "Index";
                 window.Owner = Application.Current.MainWindow;
 
                 window.ShowDialog();
