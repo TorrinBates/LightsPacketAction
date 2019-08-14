@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -10,6 +11,8 @@ namespace LightsPacketAction
     public class LauncherViewModel : ViewModelBase
     {
         private string _address = "";
+
+        public List<string> ButtonsList { get; private set; } = new List<string>();
         public string ServerAddress
         {
             get { return _address; }
@@ -35,6 +38,10 @@ namespace LightsPacketAction
 
         public LauncherViewModel()
         {
+            for (int i = 1; i < 41; i++)
+            {
+                ButtonsList.Add("Button "+i.ToString());
+            }
             BrowseOverlayImageCommand = new RelayCommand((p) => {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Multiselect = false;
@@ -53,7 +60,7 @@ namespace LightsPacketAction
                     window.ResizeMode = ResizeMode.NoResize;
                     window.WindowState = WindowState.Maximized;
                     window.WindowStyle = WindowStyle.None;
-                    window.Content = new DisplayViewModel();
+                    window.Content = new DisplayViewModel(ButtonsList);
 
                     window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => window.Close()), Key.Escape, ModifierKeys.None));
 

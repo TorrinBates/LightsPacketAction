@@ -27,10 +27,18 @@
     </UserControl.Resources>
 
     <Grid>
-        <StackPanel>
-            <Button Height="500" Width="500">
-                <Button.ToolTip>Button 1</Button.ToolTip>
-            </Button>
-        </StackPanel>
+        <ItemsControl Margin="0,0,-25,8" ItemsSource="{Binding Buttons}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Height="150" Width="150" ToolTip="{Binding}">
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>
