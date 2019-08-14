@@ -27,7 +27,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <ItemsControl Margin="0,0,-25,8" ItemsSource="{Binding Buttons}">
+        <ItemsControl Margin="150" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" ItemsSource="{Binding Buttons}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel></WrapPanel>
