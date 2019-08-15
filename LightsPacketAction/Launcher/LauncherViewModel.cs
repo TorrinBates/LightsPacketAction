@@ -61,6 +61,7 @@ namespace LightsPacketAction
                         window.ResizeMode = ResizeMode.NoResize;
                         window.WindowState = WindowState.Maximized;
                         window.WindowStyle = WindowStyle.None;
+                        window.Cursor = Cursors.None;
                         window.Content = new DisplayViewModel(ButtonsList, ServerAddress, Convert.ToInt32(ServerPort));
 
                         window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => window.Close()), Key.Escape,
