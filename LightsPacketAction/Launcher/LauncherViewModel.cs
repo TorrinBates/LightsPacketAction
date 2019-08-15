@@ -40,7 +40,7 @@ namespace LightsPacketAction
         {
             for (int i = 1; i < 41; i++)
             {
-                ButtonsList.Add("Button "+i.ToString());
+                ButtonsList.Add("Button"+i.ToString()+"/r");
             }
             BrowseOverlayImageCommand = new RelayCommand((p) => {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -55,18 +55,26 @@ namespace LightsPacketAction
             LaunchDisplayCommand = new RelayCommand(
                 (p) => OverlayImagePath != "" && ServerPort != "" && ServerAddress != "",
                 (p) => {
-                    var window = new Window();
-                    window.Owner = Application.Current.MainWindow;
-                    window.ResizeMode = ResizeMode.NoResize;
-                    window.WindowState = WindowState.Maximized;
-                    window.WindowStyle = WindowStyle.None;
-                    window.Content = new DisplayViewModel(ButtonsList);
+                    try
+                    {
+                        var window = new Window();
+                        window.Owner = Application.Current.MainWindow;
+                        window.ResizeMode = ResizeMode.NoResize;
+                        window.WindowState = WindowState.Maximized;
+                        window.WindowStyle = WindowStyle.None;
+                        window.Content = new DisplayViewModel(ButtonsList, ServerAddress, Convert.ToInt32(ServerPort));
 
-                    window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => window.Close()), Key.Escape, ModifierKeys.None));
+                        window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => window.Close()), Key.Escape,
+                            ModifierKeys.None));
 
-                    window.Background = new ImageBrush(new BitmapImage(new Uri(OverlayImagePath)));
+                        window.Background = new ImageBrush(new BitmapImage(new Uri(OverlayImagePath)));
 
-                    window.ShowDialog();
+                        window.ShowDialog();
+                    }
+                    catch (UriFormatException e)
+                    {
+
+                    }
                 }
             );
 

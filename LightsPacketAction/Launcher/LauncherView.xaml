@@ -13,7 +13,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Name="border" BorderThickness="1" CornerRadius="2" BorderBrush="#1D1D1D" Background="#ED1C24">
+                        <Border Name="border" BorderThickness="1" CornerRadius="2" BorderBrush="#1D1D1D" Background="#FFC70D">
                             <Grid >
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Name="contentShadow"/>
                             </Grid>
@@ -59,9 +59,9 @@
     <StackPanel>
         <DockPanel>
             <StackPanel DockPanel.Dock="Left">
-                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#ED1C24" Text="Server Name/IP:"/>
-                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#ED1C24" Text="Destination Port:"/>
-                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#ED1C24" Text="Image Overlay:"/>
+                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#FFC70D" Text="Server Name/IP:"/>
+                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#FFC70D" Text="Destination Port:"/>
+                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#FFC70D" Text="Image Overlay:"/>
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Left">
@@ -79,12 +79,10 @@
                 </DockPanel>
             </StackPanel>
         </DockPanel>
-        <Grid Margin="0,20,0,0">
+        <Grid Margin="0,20,0,0" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Command="{Binding IndexScreenCommand}" Margin="15,0" Width="90" Height="25" HorizontalAlignment="Right">Index</Button>
             <Button Command="{Binding LaunchDisplayCommand}" Margin="15,0" Grid.Column="1" Width="90" Height="25" HorizontalAlignment="Left">Launch</Button>
         </Grid>
     </StackPanel>

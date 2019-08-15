@@ -35,7 +35,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Height="150" Width="150" ToolTip="{Binding}">
+                    <Button Height="150" Command="{Binding DataContext.SendMessage, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}" CommandParameter="{Binding}" Width="150">
                     </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
