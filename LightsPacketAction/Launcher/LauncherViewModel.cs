@@ -34,13 +34,12 @@ namespace LightsPacketAction
         }
         public ICommand BrowseOverlayImageCommand { get; private set; }
         public ICommand LaunchDisplayCommand { get; private set; }
-        public ICommand IndexScreenCommand { get; private set; }
 
         public LauncherViewModel()
         {
             for (int i = 1; i < 41; i++)
             {
-                ButtonsList.Add("Button"+i.ToString()+"/r");
+                ButtonsList.Add("Button"+i.ToString()+"\r");
             }
             BrowseOverlayImageCommand = new RelayCommand((p) => {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -78,17 +77,6 @@ namespace LightsPacketAction
                 }
             );
 
-            IndexScreenCommand = new RelayCommand(
-                (p) => OverlayImagePath != "" && ServerPort != "" && ServerAddress != "", 
-                (p) => {
-                CustomWindow window = new CustomWindow(null, "Index");
-                window.MinimizeVisibility = Visibility.Collapsed;
-                window.Height = 600;
-                window.Width = 600;
-                window.Owner = Application.Current.MainWindow;
-                
-                window.ShowDialog();
-            });
         }
     }
 }

@@ -8,8 +8,9 @@
 
     <UserControl.Resources>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="#ED1C24"/>
+            <Setter Property="Background" Value="#FFC70D"/>
             <Setter Property="Foreground" Value="#1D1D1D"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
