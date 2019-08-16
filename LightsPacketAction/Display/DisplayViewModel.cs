@@ -11,8 +11,9 @@ namespace LightsPacketAction
 {
     class DisplayViewModel
     {
-        public DisplayViewModel(List<string> buttons, string server, Int32 port)
+        public DisplayViewModel(List<string> buttons, string server, Int32 port, RelayCommand close)
         {
+            CloseDisplay = close;
             SendMessage = new RelayCommand(p =>
             {
                 try
@@ -35,6 +36,7 @@ namespace LightsPacketAction
             Buttons = buttons;
         }
 
+        public ICommand CloseDisplay { get; private set; }
         public ICommand SendMessage { get; private set; }
         public List<string> Buttons { get; private set; }
     }

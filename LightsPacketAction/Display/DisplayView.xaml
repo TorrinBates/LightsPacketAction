@@ -6,39 +6,26 @@
              xmlns:local="clr-namespace:LightsPacketAction"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="Transparent"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="border" BorderThickness="1" BorderBrush="Transparent" Background="Transparent"/>
-                            <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="#c5c5c7"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
-
     <Grid>
-        <ItemsControl Margin="150" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" ItemsSource="{Binding Buttons}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel></WrapPanel>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Button Height="150" Command="{Binding DataContext.SendMessage, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}" CommandParameter="{Binding}" Width="150">
-                    </Button>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <StackPanel>
+            <Button Height="60" Width="60" HorizontalAlignment="Right" Style="{StaticResource DisplayCloseStyle}">
+                <Button.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding CloseDisplay}"/>
+                </Button.InputBindings>
+            </Button>
+            <ItemsControl Margin="150" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" ItemsSource="{Binding Buttons}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource DisplayButtonStyle}" Height="150" Command="{Binding DataContext.SendMessage, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}" CommandParameter="{Binding}" Width="150">
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
     </Grid>
 </UserControl>
