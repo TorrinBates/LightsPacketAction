@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -56,13 +58,15 @@ namespace LightsPacketAction
                 (p) => {
                     try
                     {
+
                         var window = new Window();
                         window.Owner = Application.Current.MainWindow;
                         window.ResizeMode = ResizeMode.NoResize;
                         window.WindowState = WindowState.Maximized;
                         window.WindowStyle = WindowStyle.None;
                         window.Cursor = Cursors.None;
-                        window.Content = new DisplayViewModel(ButtonsList, ServerAddress, Convert.ToInt32(ServerPort), new RelayCommand((param) => window.Close()));
+                        window.Content = new DisplayViewModel(ButtonsList, ServerAddress, Convert.ToInt32(ServerPort),
+                            new RelayCommand((param) => window.Close()));
 
                         window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => window.Close()), Key.Escape,
                             ModifierKeys.None));
@@ -73,33 +77,32 @@ namespace LightsPacketAction
                     }
                     catch (UriFormatException)
                     {
-                        CustomWindow window = null;
-                        window = new CustomWindow(
-                            new ErrorViewModel("The image path is incorrect.",
-                                new RelayCommand((param) => window.Close())), "Error");
-                        window.MinimizeVisibility = Visibility.Collapsed;
-                        window.XVisibility = Visibility.Collapsed;
-                        window.Owner = Application.Current.MainWindow;
-                        window.Height = 100;
-                        window.Width = 250;
-                        window.ShowDialog();
+                        CreateErrorDialog("The image path is incorrect.");
                     }
                     catch (FormatException)
                     {
-                        CustomWindow window = null;
-                        window = new CustomWindow(
-                            new ErrorViewModel("Port must only contain numbers.",
-                                new RelayCommand((param) => window.Close())), "Error");
-                        window.MinimizeVisibility = Visibility.Collapsed;
-                        window.XVisibility = Visibility.Collapsed;
-                        window.Owner = Application.Current.MainWindow;
-                        window.Height = 100;
-                        window.Width = 250;
-                        window.ShowDialog();
+                        CreateErrorDialog("Port must only contain numbers.");
+                    }
+                    catch (SocketException)
+                    {
+                        CreateErrorDialog("Unable to connect to host.");
                     }
                 }
             );
+        }
 
+        public void CreateErrorDialog(string errorMessage)
+        {
+            CustomWindow window = null;
+            window = new CustomWindow(
+                new ErrorViewModel(errorMessage,
+                    new RelayCommand((param) => window.Close())), "Error");
+            window.MinimizeVisibility = Visibility.Collapsed;
+            window.XVisibility = Visibility.Collapsed;
+            window.Owner = Application.Current.MainWindow;
+            window.Height = 100;
+            window.Width = 250;
+            window.ShowDialog();
         }
     }
 }

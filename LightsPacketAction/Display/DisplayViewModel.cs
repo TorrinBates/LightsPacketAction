@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -20,6 +21,7 @@ namespace LightsPacketAction
                 {
                     TcpClient client = new TcpClient(server, port);
 
+                    Thread.Sleep(5000);
                     Byte[] data = Encoding.ASCII.GetBytes((string)p);
 
                     NetworkStream stream = client.GetStream();
