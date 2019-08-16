@@ -27,10 +27,6 @@ namespace LightsPacketAction
                     stream.Close();
                     client.Close();
                 }
-                catch (ArgumentNullException e)
-                {
-
-                }
                 catch (SocketException e)
                 {
 

@@ -71,9 +71,31 @@ namespace LightsPacketAction
 
                         window.ShowDialog();
                     }
-                    catch (UriFormatException e)
+                    catch (UriFormatException)
                     {
-
+                        CustomWindow window = null;
+                        window = new CustomWindow(
+                            new ErrorViewModel("The image path is incorrect.",
+                                new RelayCommand((param) => window.Close())), "Error");
+                        window.MinimizeVisibility = Visibility.Collapsed;
+                        window.XVisibility = Visibility.Collapsed;
+                        window.Owner = Application.Current.MainWindow;
+                        window.Height = 100;
+                        window.Width = 250;
+                        window.ShowDialog();
+                    }
+                    catch (FormatException)
+                    {
+                        CustomWindow window = null;
+                        window = new CustomWindow(
+                            new ErrorViewModel("Port must only contain numbers.",
+                                new RelayCommand((param) => window.Close())), "Error");
+                        window.MinimizeVisibility = Visibility.Collapsed;
+                        window.XVisibility = Visibility.Collapsed;
+                        window.Owner = Application.Current.MainWindow;
+                        window.Height = 100;
+                        window.Width = 250;
+                        window.ShowDialog();
                     }
                 }
             );

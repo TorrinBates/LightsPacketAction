@@ -7,32 +7,6 @@
              mc:Ignorable="d" >
 
     <UserControl.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="#FFC70D"/>
-            <Setter Property="Foreground" Value="#1D1D1D"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="border" BorderThickness="1" CornerRadius="2" BorderBrush="#1D1D1D" Background="#FFC70D">
-                            <Grid >
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Name="contentShadow"/>
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="#1D1D1D" />
-                                <Setter TargetName="border" Property="Background" Value="#c5c5c7" />
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="border" Property="Background" Value="#3F3F46"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <Style TargetType="TextBox">
         <Setter Property="Template">
             <Setter.Value>
@@ -74,7 +48,7 @@
                     <TextBox DockPanel.Dock="Left" Margin="0,0,6,0" Width="240" 
                              BorderBrush="#1D1D1D" Height="19" Foreground="#c5c5c7" Background="#3F3F46"
                              Text="{Binding OverlayImagePath, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Button Foreground="#1D1D1D" Height="19" Command="{Binding BrowseOverlayImageCommand}">
+                    <Button Style="{StaticResource MainButtonStyle}" Foreground="#1D1D1D" Height="19" Command="{Binding BrowseOverlayImageCommand}">
                         Browse...
                     </Button>
                 </DockPanel>
@@ -84,7 +58,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Command="{Binding LaunchDisplayCommand}" Margin="15,0" Grid.Column="1" Width="90" Height="25" HorizontalAlignment="Left">Launch</Button>
+            <Button Style="{StaticResource MainButtonStyle}" Command="{Binding LaunchDisplayCommand}" Margin="15,0" Grid.Column="1" Width="90" Height="25" HorizontalAlignment="Left">Launch</Button>
         </Grid>
     </StackPanel>
 </UserControl>

@@ -27,6 +27,8 @@ namespace LightsPacketAction
 
         public Visibility MinimizeVisibility { get; set; } = Visibility.Visible;
 
+        public Visibility XVisibility { get; set; } = Visibility.Visible;
+
         private void OnCanResizeWindow(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ResizeMode == ResizeMode.CanResize || ResizeMode == ResizeMode.CanResizeWithGrip;

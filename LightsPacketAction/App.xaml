@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:LightsPacketAction"
              Startup="AppStartup">
     <Application.Resources>
-        <ResourceDictionary Source="ViewModelAssociations.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ViewModelAssociations.xaml"/>
+                <ResourceDictionary Source="CommonLib/CommonViewResourcesDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
