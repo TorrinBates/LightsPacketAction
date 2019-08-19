@@ -16,24 +16,27 @@ namespace LightsPacketAction
         {
             CloseDisplay = close;
             Buttons = buttons;
-            SendMessage = new RelayCommand(p =>
+            SendMessage = new RelayCommand(async p =>
             {
-                try
+                await Task.Run(() =>
                 {
-                    TcpClient client = new TcpClient(server, port);
+                    try
+                    {
+                        TcpClient client = new TcpClient(server, port);
 
-                    Byte[] data = Encoding.ASCII.GetBytes((string) p);
+                        Byte[] data = Encoding.ASCII.GetBytes((string)p);
 
-                    NetworkStream stream = client.GetStream();
-                    stream.Write(data, 0, data.Length);
+                        NetworkStream stream = client.GetStream();
+                        stream.Write(data, 0, data.Length);
 
-                    stream.Close();
-                    client.Close();
-                }
-                catch (SocketException e)
-                {
+                        stream.Close();
+                        client.Close();
+                    }
+                    catch (SocketException e)
+                    {
 
-                }
+                    }
+                });
             });
         }
 
