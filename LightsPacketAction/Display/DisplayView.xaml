@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:LightsPacketAction"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <local:BooleanToStyleConverter x:Key="MyButtonStyleConverter" TrueStyle="{StaticResource DisplayOutlineStyle}" FalseStyle="{StaticResource DisplayButtonStyle}"/>
+    </UserControl.Resources>
     <Grid>
         <StackPanel>
             <Button Height="60" Width="60" HorizontalAlignment="Right" Style="{StaticResource DisplayCloseStyle}">
@@ -21,7 +24,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Style="{StaticResource DisplayButtonStyle}" Height="150" Command="{Binding DataContext.SendMessage, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}" CommandParameter="{Binding}" Width="150">
+                        <Button Style="{Binding DataContext.DisplayLines, Converter={StaticResource MyButtonStyleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}" Height="150" Command="{Binding DataContext.SendMessage, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}" CommandParameter="{Binding}" Width="150">
                         </Button>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

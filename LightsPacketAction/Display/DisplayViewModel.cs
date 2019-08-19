@@ -14,14 +14,15 @@ namespace LightsPacketAction
     {
         public DisplayViewModel(List<string> buttons, string server, Int32 port, RelayCommand close)
         {
+            DisplayLines = false;
             CloseDisplay = close;
+            Buttons = buttons;
             SendMessage = new RelayCommand(p =>
             {
                 try
                 {
                     TcpClient client = new TcpClient(server, port);
 
-                    Thread.Sleep(5000);
                     Byte[] data = Encoding.ASCII.GetBytes((string)p);
 
                     NetworkStream stream = client.GetStream();
@@ -35,9 +36,9 @@ namespace LightsPacketAction
 
                 }
             });
-            Buttons = buttons;
         }
 
+        public bool DisplayLines { get; set; }
         public ICommand CloseDisplay { get; private set; }
         public ICommand SendMessage { get; private set; }
         public List<string> Buttons { get; private set; }
