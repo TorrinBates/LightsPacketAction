@@ -68,6 +68,8 @@ namespace LightsPacketAction
                         window.Content = new DisplayViewModel(ButtonsList, ServerAddress, Convert.ToInt32(ServerPort),
                             new RelayCommand((param) => window.Close()));
 
+                        window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => ((DisplayViewModel)window.Content).DisplayLines = !((DisplayViewModel)window.Content).DisplayLines), Key.Enter,
+                            ModifierKeys.Shift));
                         window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => window.Close()), Key.Escape,
                             ModifierKeys.None));
 

@@ -37,7 +37,7 @@
                     <Border Name="border" BorderThickness="1" BorderBrush="Transparent" Background="Transparent"/>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="#c5c5c7"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="Transparent"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -55,7 +55,7 @@
                     <Border Name="border" BorderThickness="1" BorderBrush="#c5c5c7" Background="Transparent"/>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="#c5c5c7"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="GreenYellow"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
