@@ -39,7 +39,7 @@ namespace LightsPacketAction
 
         public LauncherViewModel()
         {
-            for (int i = 1; i < 41; i++)
+            for (int i = 1; i < 73; i++)
             {
                 ButtonsList.Add("Button"+i.ToString()+"\r");
             }
