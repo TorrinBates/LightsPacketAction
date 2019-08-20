@@ -48,6 +48,7 @@
     <Style x:Key="DisplayOutlineStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="Transparent"/>
+        <Setter Property="ToolTip" Value="{Binding}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Template">
             <Setter.Value>
