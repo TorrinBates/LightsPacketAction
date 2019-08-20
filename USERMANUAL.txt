@@ -1,0 +1,18 @@
+	SHORTCUTS
+=========================
+- Ctrl + M: toggles buttons styles
+- Esc: closes full screen window
+- Double Tap Right Corner: closes full screen window
+
+	SCENARIO
+=========================
+- Run application exe
+- Fill out server name or IP address
+- Fill out port number (must be numbers only)
+- Fill out image path by typing or browsing
+- Click launch 
+- Click buttons to send message
+
+	MESSAGE
+=========================
+- Messages are formatted as "Button#\r" so an example of how the message might look is "Button21"
