@@ -47,7 +47,7 @@ namespace LightsPacketAction
                 {
                     if (bbb == null)
                     {
-                        CreateErrorDialog("Connection lost, message not sent.");
+                        CreateErrorDialog("Unable to connect to host.");
                     }
                 }
             });

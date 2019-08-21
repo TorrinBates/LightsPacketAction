@@ -57,17 +57,10 @@ namespace LightsPacketAction
 
             LaunchDisplayCommand = new RelayCommand(
                 (p) => OverlayImagePath != "" && ServerPort != "" && ServerAddress != "",
-                /*async*/ p => {
+                p => {
                     try
                     {
-                        //await Task.Run(() =>
-                        //{
-                        //    TcpClient tcp = new TcpClient(ServerAddress, Convert.ToInt32(ServerPort));
-                        //    tcp.Close();
-                        //});
-
-
-                            var window = new Window();
+                        var window = new Window();
                             window.Owner = Application.Current.MainWindow;
                             window.ResizeMode = ResizeMode.NoResize;
                             window.WindowState = WindowState.Maximized;
@@ -100,14 +93,6 @@ namespace LightsPacketAction
                     {
                         CreateErrorDialog("Port must only contain numbers.");
                     }
-                    //catch (IOException)
-                    //{
-                    //    CreateErrorDialog("Unable to connect to host.");
-                    //}
-                    //catch (SocketException)
-                    //{
-                    //    CreateErrorDialog("Unable to connect to host.");
-                    //}
                 });
         }
 
