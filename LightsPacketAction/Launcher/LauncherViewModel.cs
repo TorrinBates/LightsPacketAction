@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -55,27 +57,40 @@ namespace LightsPacketAction
 
             LaunchDisplayCommand = new RelayCommand(
                 (p) => OverlayImagePath != "" && ServerPort != "" && ServerAddress != "",
-                (p) => {
+                /*async*/ p => {
                     try
                     {
+                        //await Task.Run(() =>
+                        //{
+                        //    TcpClient tcp = new TcpClient(ServerAddress, Convert.ToInt32(ServerPort));
+                        //    tcp.Close();
+                        //});
 
-                        var window = new Window();
-                        window.Owner = Application.Current.MainWindow;
-                        window.ResizeMode = ResizeMode.NoResize;
-                        window.WindowState = WindowState.Maximized;
-                        window.WindowStyle = WindowStyle.None;
-                        window.Cursor = Cursors.None;
-                        window.Content = new DisplayViewModel(ButtonsList, ServerAddress, Convert.ToInt32(ServerPort),
-                            new RelayCommand((param) => window.Close()));
 
-                        window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => ((DisplayViewModel)window.Content).DisplayLines = !((DisplayViewModel)window.Content).DisplayLines), Key.M,
-                            ModifierKeys.Control));
-                        window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => window.Close()), Key.Escape,
-                            ModifierKeys.None));
+                            var window = new Window();
+                            window.Owner = Application.Current.MainWindow;
+                            window.ResizeMode = ResizeMode.NoResize;
+                            window.WindowState = WindowState.Maximized;
+                            window.WindowStyle = WindowStyle.None;
+                            window.Cursor = Cursors.None;
+                            window.Content = new DisplayViewModel(ButtonsList, ServerAddress,
+                                Convert.ToInt32(ServerPort),
+                                new RelayCommand((param) => window.Close()));
 
-                        window.Background = new ImageBrush(new BitmapImage(new Uri(OverlayImagePath)));
+                            window.InputBindings.Add(new KeyBinding(
+                                new RelayCommand((param) =>
+                                    ((DisplayViewModel) window.Content).DisplayLines =
+                                    !((DisplayViewModel) window.Content).DisplayLines), Key.M,
+                                ModifierKeys.Control));
+                            window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => window.Close()),
+                                Key.Escape,
+                                ModifierKeys.None));
 
-                        window.ShowDialog();
+                            window.Background = new ImageBrush(new BitmapImage(new Uri(OverlayImagePath)));
+
+                            window.ShowDialog();
+                            
+
                     }
                     catch (UriFormatException)
                     {
@@ -85,12 +100,15 @@ namespace LightsPacketAction
                     {
                         CreateErrorDialog("Port must only contain numbers.");
                     }
-                    catch (SocketException)
-                    {
-                        CreateErrorDialog("Unable to connect to host.");
-                    }
-                }
-            );
+                    //catch (IOException)
+                    //{
+                    //    CreateErrorDialog("Unable to connect to host.");
+                    //}
+                    //catch (SocketException)
+                    //{
+                    //    CreateErrorDialog("Unable to connect to host.");
+                    //}
+                });
         }
 
         public void CreateErrorDialog(string errorMessage)
