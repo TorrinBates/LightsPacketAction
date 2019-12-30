@@ -26,7 +26,6 @@ namespace LightsPacketAction
                     {
                         TcpClient client = new TcpClient(server, port);
 
-                        Thread.Sleep(5000);
                         Byte[] data = Encoding.ASCII.GetBytes((string) p);
 
                         NetworkStream stream = client.GetStream();
