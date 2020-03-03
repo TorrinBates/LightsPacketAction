@@ -1,4 +1,5 @@
 # LightsPacketAction
+![Windowed](https://user-images.githubusercontent.com/43557445/75826974-a856b400-5d76-11ea-8732-e63ef70b6077.PNG)
 
 ## SHORTCUTS
 - Ctrl + M: toggles buttons styles
