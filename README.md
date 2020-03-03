@@ -1,6 +1,7 @@
 # LightsPacketAction
 ![Windowed](https://user-images.githubusercontent.com/43557445/75826974-a856b400-5d76-11ea-8732-e63ef70b6077.PNG)
 
+![Fullscreen](https://user-images.githubusercontent.com/43557445/75827195-18fdd080-5d77-11ea-93e0-87e598d47ff5.PNG)
 ## SHORTCUTS
 - Ctrl + M: toggles buttons styles
 - Esc: closes full screen window
