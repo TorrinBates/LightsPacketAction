@@ -10,25 +10,25 @@
         <local:BooleanToStyleConverter x:Key="MyButtonStyleConverter" TrueStyle="{StaticResource DisplayOutlineStyle}" FalseStyle="{StaticResource DisplayButtonStyle}"/>
     </UserControl.Resources>
     <Grid>
-        <StackPanel>
-            <Button Height="60" Width="60" HorizontalAlignment="Right" Style="{StaticResource DisplayCloseStyle}">
+        <DockPanel>
+            <Button Height="60" Width="60" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource DisplayCloseStyle}">
                 <Button.InputBindings>
                     <MouseBinding Gesture="LeftDoubleClick" Command="{Binding CloseDisplay}"/>
                 </Button.InputBindings>
             </Button>
-            <ItemsControl Margin="10,60" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" ItemsSource="{Binding Buttons}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel></WrapPanel>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Style="{Binding DataContext.DisplayLines, Converter={StaticResource MyButtonStyleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}" Height="150" Command="{Binding DataContext.SendMessage, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}" CommandParameter="{Binding}" Width="150">
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+        </DockPanel>
+        <ItemsControl Margin="60,100,60,60" ItemsSource="{Binding Buttons}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="12" Rows="6"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Style="{Binding DataContext.DisplayLines, Converter={StaticResource MyButtonStyleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}"
+                                    Command="{Binding DataContext.SendMessage, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}" CommandParameter="{Binding}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>
