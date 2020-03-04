@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using System.Drawing.Imaging;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -47,9 +48,19 @@ namespace LightsPacketAction
             }
             BrowseOverlayImageCommand = new RelayCommand((p) => {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Multiselect = false;
-                openFileDialog.Title = "Select Image to Overlay";
-                openFileDialog.Filter = "JPEG Files: (*.JPG;*.JPEG;*.JPE;*.JFIF)|*.JPG;*.JPEG;*.JPE;*.JFIF";
+                openFileDialog.Filter = "";
+
+                ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
+                string sep = string.Empty;
+
+                openFileDialog.Filter = String.Format("{0}{1}{2} ({3})|{3}", openFileDialog.Filter, sep, "All Files", "*.*");
+
+                foreach (var c in codecs)
+                {
+                    sep = "|";
+                    string codecName = c.CodecName.Substring(8).Replace("Codec", "Files").Trim();
+                    openFileDialog.Filter = String.Format("{0}{1}{2} ({3})|{3}", openFileDialog.Filter, sep, codecName, c.FilenameExtension);
+                }
 
                 if (openFileDialog.ShowDialog() == true)
                     OverlayImagePath = openFileDialog.FileName;
