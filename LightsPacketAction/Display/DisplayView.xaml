@@ -17,7 +17,7 @@
                 </Button.InputBindings>
             </Button>
         </DockPanel>
-        <ItemsControl Margin="60,100,60,60" ItemsSource="{Binding Buttons}">
+        <ItemsControl Margin="40,70,40,40" ItemsSource="{Binding Buttons}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="12" Rows="6"/>
