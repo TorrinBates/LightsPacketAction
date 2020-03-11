@@ -20,34 +20,38 @@ namespace LightsPacketAction
             Buttons = buttons;
             SendMessage = new RelayCommand(async p =>
             {
-                try
+
+                int t = await Task<int>.Factory.StartNew(() =>
                 {
-                    await Task.Run(() =>
+                    try
                     {
                         TcpClient client = new TcpClient(server, port);
 
-                        Byte[] data = Encoding.ASCII.GetBytes((string) p);
+                        Byte[] data = Encoding.ASCII.GetBytes((string)p);
 
                         NetworkStream stream = client.GetStream();
                         stream.Write(data, 0, data.Length);
 
                         stream.Close();
                         client.Close();
-                    });
-                }
-                catch (IOException)
-                {
-                    if (bbb == null)
-                    {
-                        CreateErrorDialog("Connection lost, message not sent.");
+                        return 0;
                     }
-                }
-                catch (SocketException)
-                {
-                    if (bbb == null)
+                    catch (IOException)
                     {
-                        CreateErrorDialog("Unable to connect to host.");
+                        return 1;
                     }
+                    catch (SocketException)
+                    {
+                        return 2;
+                    }
+                });
+                if (bbb == null && t==1)
+                {
+                    CreateErrorDialog("Connection lost, message not sent.");
+                }
+                if (bbb == null && t==2)
+                {
+                    CreateErrorDialog("Unable to connect to host.");
                 }
             });
         }
