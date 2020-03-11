@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Text.RegularExpressions;
 
 namespace LightsPacketAction
 {
@@ -71,7 +72,9 @@ namespace LightsPacketAction
                 p => {
                     try
                     {
-                        var window = new Window();
+                        if (IsValidIP(ServerAddress))
+                        {
+                            var window = new Window();
                             window.Owner = Application.Current.MainWindow;
                             window.ResizeMode = ResizeMode.NoResize;
                             window.WindowState = WindowState.Maximized;
@@ -83,8 +86,8 @@ namespace LightsPacketAction
 
                             window.InputBindings.Add(new KeyBinding(
                                 new RelayCommand((param) =>
-                                    ((DisplayViewModel) window.Content).DisplayLines =
-                                    !((DisplayViewModel) window.Content).DisplayLines), Key.M,
+                                    ((DisplayViewModel)window.Content).DisplayLines =
+                                    !((DisplayViewModel)window.Content).DisplayLines), Key.M,
                                 ModifierKeys.Control));
                             window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => window.Close()),
                                 Key.Escape,
@@ -93,8 +96,11 @@ namespace LightsPacketAction
                             window.Background = new ImageBrush(new BitmapImage(new Uri(OverlayImagePath)));
 
                             window.ShowDialog();
-                            
-
+                        }
+                        else
+                        {
+                            CreateErrorDialog("The IP address is invalid.");
+                        }
                     }
                     catch (UriFormatException)
                     {
@@ -105,6 +111,15 @@ namespace LightsPacketAction
                         CreateErrorDialog("Port must only contain numbers.");
                     }
                 });
+        }
+
+        public bool IsValidIP(string Address)
+        {
+            //Match pattern for IP address    
+            string Pattern = @"^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$"; 
+            Regex check = new Regex(Pattern);
+ 
+            return check.IsMatch(Address, 0);
         }
 
         public void CreateErrorDialog(string errorMessage)
