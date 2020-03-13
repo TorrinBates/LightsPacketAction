@@ -73,6 +73,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Launcher\ConfigureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Launcher\LauncherView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -91,6 +95,10 @@
       <DependentUpon>DisplayView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Display\DisplayViewModel.cs" />
+    <Compile Include="Launcher\ConfigureView.xaml.cs">
+      <DependentUpon>ConfigureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Launcher\ConfigureViewModel.cs" />
     <Compile Include="Launcher\LauncherView.xaml.cs">
       <DependentUpon>LauncherView.xaml</DependentUpon>
     </Compile>

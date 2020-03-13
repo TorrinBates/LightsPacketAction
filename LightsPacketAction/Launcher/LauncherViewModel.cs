@@ -1,10 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Net.Sockets;
-using System.Threading.Tasks;
 using System.Drawing.Imaging;
 using System.Windows;
 using System.Windows.Input;
@@ -72,8 +68,8 @@ namespace LightsPacketAction
             ConfigureCommand = new RelayCommand((p) => {
                 CustomWindow window = null;
                 window = new CustomWindow(
-                    new ErrorViewModel("",
-                        new RelayCommand((param) => window.Close())), "Configure Buttons");
+                    new ConfigureViewModel(
+                    new RelayCommand((param) => window.Close())), "Configure Buttons");
                 window.MinimizeVisibility = Visibility.Collapsed;
                 window.XVisibility = Visibility.Collapsed;
                 window.Owner = Application.Current.MainWindow;

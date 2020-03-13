@@ -11,4 +11,7 @@
     <DataTemplate DataType="{x:Type local:ErrorViewModel}">
         <local:ErrorView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type local:ConfigureViewModel}">
+        <local:ConfigureView/>
+    </DataTemplate>
 </ResourceDictionary>
