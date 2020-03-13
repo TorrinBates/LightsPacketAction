@@ -40,6 +40,7 @@ namespace LightsPacketAction
         }
         public ICommand BrowseOverlayImageCommand { get; private set; }
         public ICommand LaunchDisplayCommand { get; private set; }
+        public ICommand ConfigureCommand { get; private set; }
 
         public LauncherViewModel()
         {
@@ -47,6 +48,7 @@ namespace LightsPacketAction
             {
                 ButtonsList.Add("Button"+i.ToString()+"\r");
             }
+
             BrowseOverlayImageCommand = new RelayCommand((p) => {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = "";
@@ -67,9 +69,23 @@ namespace LightsPacketAction
                     OverlayImagePath = openFileDialog.FileName;
             });
 
+            ConfigureCommand = new RelayCommand((p) => {
+                CustomWindow window = null;
+                window = new CustomWindow(
+                    new ErrorViewModel("",
+                        new RelayCommand((param) => window.Close())), "Configure Buttons");
+                window.MinimizeVisibility = Visibility.Collapsed;
+                window.XVisibility = Visibility.Collapsed;
+                window.Owner = Application.Current.MainWindow;
+                window.Height = 500;
+                window.Width = 400;
+                window.ShowDialog();
+
+            });
+
             LaunchDisplayCommand = new RelayCommand(
                 (p) => OverlayImagePath != "" && ServerPort != "" && ServerAddress != "",
-                p => {
+                (p) => {
                     try
                     {
                         if (IsValidIP(ServerAddress))
@@ -93,6 +109,7 @@ namespace LightsPacketAction
                                 Key.Escape,
                                 ModifierKeys.None));
 
+
                             window.Background = new ImageBrush(new BitmapImage(new Uri(OverlayImagePath)));
 
                             window.ShowDialog();
@@ -109,6 +126,10 @@ namespace LightsPacketAction
                     catch (FormatException)
                     {
                         CreateErrorDialog("Port must only contain numbers.");
+                    }
+                    catch (NotSupportedException)
+                    {
+                        CreateErrorDialog("Image file type not supported.");
                     }
                 });
         }

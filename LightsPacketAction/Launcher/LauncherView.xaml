@@ -58,7 +58,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource MainButtonStyle}" Command="{Binding LaunchDisplayCommand}" Margin="15,0" Grid.Column="1" Width="90" Height="25" HorizontalAlignment="Left">Launch</Button>
+            <WrapPanel>
+                <Button Style="{StaticResource MainButtonStyle}" Command="{Binding ConfigureCommand}" Margin="15,0" Grid.Column="1" Width="90" Height="25" HorizontalAlignment="Left">Configure</Button>
+                <Button Style="{StaticResource MainButtonStyle}" Command="{Binding LaunchDisplayCommand}" Margin="15,0" Grid.Column="1" Width="90" Height="25" HorizontalAlignment="Right">Launch</Button>
+            </WrapPanel>
         </Grid>
     </StackPanel>
 </UserControl>
