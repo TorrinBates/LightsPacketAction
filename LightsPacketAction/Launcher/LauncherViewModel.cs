@@ -43,12 +43,7 @@ namespace LightsPacketAction
 
         public LauncherViewModel()
         {
-            //for (int i = 1; i < 19; i++)
-            //{
-            //    ButtonsList.Add("Button" + i.ToString());
-            //}
-
-            //BuildConfig();
+            BuildConfig();
 
             BrowseOverlayImageCommand = new RelayCommand((p) => {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -175,29 +170,37 @@ namespace LightsPacketAction
 
         public void BuildConfig()
         {
-            XmlWriter xmlWriter = XmlWriter.Create("config.xml");
+            if (!File.Exists("config.xml"))
+            {
+                List<string> Temp = new List<string>();
+                for (int i = 1; i < 73; i++)
+                {
+                    Temp.Add("Button" + i.ToString());
+                }
+                XmlWriter xmlWriter = XmlWriter.Create("config.xml");
 
-            xmlWriter.WriteStartDocument();
-            xmlWriter.WriteStartElement("Config");
+                xmlWriter.WriteStartDocument();
+                xmlWriter.WriteStartElement("Config");
 
-            xmlWriter.WriteStartElement("Buttons");
-            xmlWriter.WriteAttributeString("count", "72");
-            xmlWriter.WriteEndElement();
+                xmlWriter.WriteStartElement("Buttons");
+                xmlWriter.WriteAttributeString("count", "72");
+                xmlWriter.WriteEndElement();
 
-            xmlWriter.WriteStartElement("Rows");
-            xmlWriter.WriteAttributeString("count", "6");
-            xmlWriter.WriteEndElement();
+                xmlWriter.WriteStartElement("Rows");
+                xmlWriter.WriteAttributeString("count", "6");
+                xmlWriter.WriteEndElement();
 
-            xmlWriter.WriteStartElement("Columns");
-            xmlWriter.WriteAttributeString("count", "12");
-            xmlWriter.WriteEndElement();
+                xmlWriter.WriteStartElement("Columns");
+                xmlWriter.WriteAttributeString("count", "12");
+                xmlWriter.WriteEndElement();
 
-            xmlWriter.WriteStartElement("Messages");
-            XmlSerializer xs = new XmlSerializer(ButtonsList.GetType());
-            xs.Serialize(xmlWriter, ButtonsList);
+                xmlWriter.WriteStartElement("Messages");
+                XmlSerializer xs = new XmlSerializer(Temp.GetType());
+                xs.Serialize(xmlWriter, Temp);
 
-            xmlWriter.WriteEndDocument();
-            xmlWriter.Close();
+                xmlWriter.WriteEndDocument();
+                xmlWriter.Close();
+            }
         }
     }
 }
