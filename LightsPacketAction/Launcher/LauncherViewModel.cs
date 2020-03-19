@@ -3,10 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Windows;
+using System.IO;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Text.RegularExpressions;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace LightsPacketAction
 {
@@ -40,10 +43,12 @@ namespace LightsPacketAction
 
         public LauncherViewModel()
         {
-            for (int i = 1; i < 73; i++)
-            {
-                ButtonsList.Add("Button"+i.ToString()+"\r");
-            }
+            //for (int i = 1; i < 19; i++)
+            //{
+            //    ButtonsList.Add("Button" + i.ToString());
+            //}
+
+            //BuildConfig();
 
             BrowseOverlayImageCommand = new RelayCommand((p) => {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -86,13 +91,29 @@ namespace LightsPacketAction
                     {
                         if (IsValidIP(ServerAddress))
                         {
+                            XmlDocument doc = new XmlDocument();
+                            doc.Load("config.xml");
+                            XmlNode b = doc.DocumentElement.SelectSingleNode("/Config/Buttons");
+                            int numButton = int.Parse(b.Attributes["count"]?.InnerText);
+                            XmlNode r = doc.DocumentElement.SelectSingleNode("/Config/Rows");
+                            int numRows = int.Parse(r.Attributes["count"]?.InnerText);
+                            XmlNode c = doc.DocumentElement.SelectSingleNode("/Config/Columns");
+                            int numColumns = int.Parse(c.Attributes["count"]?.InnerText);
+                            XmlNode m = doc.DocumentElement.SelectSingleNode("/Config/Messages");
+                            XmlSerializer xs = new XmlSerializer(typeof(List<string>));
+                            ButtonsList = (List<string>)xs.Deserialize(new XmlNodeReader(m.FirstChild));
+                            for (int i=0; i<ButtonsList.Count; i++)
+                            {
+                                ButtonsList[i] = ButtonsList[i] + "\r";
+                            }
+
                             var window = new Window();
                             window.Owner = Application.Current.MainWindow;
                             window.ResizeMode = ResizeMode.NoResize;
                             window.WindowState = WindowState.Maximized;
                             window.WindowStyle = WindowStyle.None;
                             window.Cursor = Cursors.None;
-                            window.Content = new DisplayViewModel(ButtonsList, ServerAddress,
+                            window.Content = new DisplayViewModel(ButtonsList, numRows, numColumns, ServerAddress,
                                 Convert.ToInt32(ServerPort),
                                 new RelayCommand((param) => window.Close()));
 
@@ -104,7 +125,6 @@ namespace LightsPacketAction
                             window.InputBindings.Add(new KeyBinding(new RelayCommand((param) => window.Close()),
                                 Key.Escape,
                                 ModifierKeys.None));
-
 
                             window.Background = new ImageBrush(new BitmapImage(new Uri(OverlayImagePath)));
 
@@ -151,6 +171,33 @@ namespace LightsPacketAction
             window.Height = 100;
             window.Width = 250;
             window.ShowDialog();
+        }
+
+        public void BuildConfig()
+        {
+            XmlWriter xmlWriter = XmlWriter.Create("config.xml");
+
+            xmlWriter.WriteStartDocument();
+            xmlWriter.WriteStartElement("Config");
+
+            xmlWriter.WriteStartElement("Buttons");
+            xmlWriter.WriteAttributeString("count", "72");
+            xmlWriter.WriteEndElement();
+
+            xmlWriter.WriteStartElement("Rows");
+            xmlWriter.WriteAttributeString("count", "6");
+            xmlWriter.WriteEndElement();
+
+            xmlWriter.WriteStartElement("Columns");
+            xmlWriter.WriteAttributeString("count", "12");
+            xmlWriter.WriteEndElement();
+
+            xmlWriter.WriteStartElement("Messages");
+            XmlSerializer xs = new XmlSerializer(ButtonsList.GetType());
+            xs.Serialize(xmlWriter, ButtonsList);
+
+            xmlWriter.WriteEndDocument();
+            xmlWriter.Close();
         }
     }
 }

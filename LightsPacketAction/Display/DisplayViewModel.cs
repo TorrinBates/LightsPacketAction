@@ -11,10 +11,12 @@ namespace LightsPacketAction
 {
     class DisplayViewModel : ViewModelBase
     {
-        public DisplayViewModel(List<string> buttons, string server, Int32 port, RelayCommand close)
+        public DisplayViewModel(List<string> buttons, int rows, int columns, string server, Int32 port, RelayCommand close)
         {
             CloseDisplay = close;
             Buttons = buttons;
+            Rows = rows;
+            Columns = columns;
             SendMessage = new RelayCommand(async p =>
             {
 
@@ -88,6 +90,8 @@ namespace LightsPacketAction
         }
 
         private CustomWindow bbb = null;
+        public int Rows { get; private set; }
+        public int Columns { get; private set; }
         public ICommand CloseDisplay { get; private set; }
         public ICommand SendMessage { get; private set; }
         public List<string> Buttons { get; private set; }
