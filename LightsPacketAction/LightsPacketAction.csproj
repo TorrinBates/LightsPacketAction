@@ -74,6 +74,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Configure\LayoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Configure\MessagesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Configure\NextView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +111,14 @@
       <DependentUpon>DualButtonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Configure\DualButtonViewModel.cs" />
+    <Compile Include="Configure\LayoutView.xaml.cs">
+      <DependentUpon>LayoutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configure\LayoutViewModel.cs" />
+    <Compile Include="Configure\MessagesView.xaml.cs">
+      <DependentUpon>MessagesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configure\MessagesViewModel.cs" />
     <Compile Include="Configure\NextView.xaml.cs">
       <DependentUpon>NextView.xaml</DependentUpon>
     </Compile>
