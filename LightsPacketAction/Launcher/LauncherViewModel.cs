@@ -67,11 +67,7 @@ namespace LightsPacketAction
 
             ConfigureCommand = new RelayCommand((p) => {
                 CustomWindow window = null;
-                window = new CustomWindow(
-                    new ConfigureViewModel(
-                    new RelayCommand((param) => window.Close())), "Configure Buttons");
-                window.MinimizeVisibility = Visibility.Collapsed;
-                window.XVisibility = Visibility.Collapsed;
+                window = new CustomWindow(new ConfigureViewModel(), "Configure");
                 window.Owner = Application.Current.MainWindow;
                 window.Height = 500;
                 window.Width = 400;

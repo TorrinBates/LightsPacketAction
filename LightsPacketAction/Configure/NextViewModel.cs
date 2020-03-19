@@ -7,13 +7,13 @@ using System.Windows.Input;
 
 namespace LightsPacketAction
 {
-    class ConfigureViewModel : ViewModelBase
+    public class NextViewModel : ViewModelBase
     {
-        public ConfigureViewModel(RelayCommand close)
+        public NextViewModel(ICommand command)
         {
-            CancelCommand = close;
+            NextCommand = command;
         }
 
-        public ICommand CancelCommand { get; private set; }
+        public ICommand NextCommand { get; private set; }
     }
 }

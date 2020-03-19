@@ -70,11 +70,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Configure\DualButtonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Configure\NextView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Display\DisplayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Launcher\ConfigureView.xaml">
+    <Page Include="Configure\ConfigureView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -91,15 +99,23 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CommonLib\ViewModelBase.cs" />
+    <Compile Include="Configure\DualButtonView.xaml.cs">
+      <DependentUpon>DualButtonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configure\DualButtonViewModel.cs" />
+    <Compile Include="Configure\NextView.xaml.cs">
+      <DependentUpon>NextView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configure\NextViewModel.cs" />
     <Compile Include="Display\BooleanToStyleConverter.cs" />
     <Compile Include="Display\DisplayView.xaml.cs">
       <DependentUpon>DisplayView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Display\DisplayViewModel.cs" />
-    <Compile Include="Launcher\ConfigureView.xaml.cs">
+    <Compile Include="Configure\ConfigureView.xaml.cs">
       <DependentUpon>ConfigureView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Launcher\ConfigureViewModel.cs" />
+    <Compile Include="Configure\ConfigureViewModel.cs" />
     <Compile Include="Launcher\LauncherView.xaml.cs">
       <DependentUpon>LauncherView.xaml</DependentUpon>
     </Compile>

@@ -14,4 +14,10 @@
     <DataTemplate DataType="{x:Type local:ConfigureViewModel}">
         <local:ConfigureView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type local:NextViewModel}">
+        <local:NextView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type local:DualButtonViewModel}">
+        <local:DualButtonView/>
+    </DataTemplate>
 </ResourceDictionary>
