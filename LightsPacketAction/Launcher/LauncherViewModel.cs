@@ -88,8 +88,6 @@ namespace LightsPacketAction
                         {
                             XmlDocument doc = new XmlDocument();
                             doc.Load("config.xml");
-                            XmlNode b = doc.DocumentElement.SelectSingleNode("/Config/Buttons");
-                            int numButton = int.Parse(b.Attributes["count"]?.InnerText);
                             XmlNode r = doc.DocumentElement.SelectSingleNode("/Config/Rows");
                             int numRows = int.Parse(r.Attributes["count"]?.InnerText);
                             XmlNode c = doc.DocumentElement.SelectSingleNode("/Config/Columns");
@@ -129,6 +127,22 @@ namespace LightsPacketAction
                         {
                             CreateErrorDialog("The IP address is invalid.");
                         }
+                    }
+                    catch (XmlException)
+                    {
+                        CreateErrorDialog("Invalid Configuration File.");
+                    }
+                    catch (NullReferenceException)
+                    {
+                        CreateErrorDialog("Invalid Configuration File.");
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        CreateErrorDialog("Invalid Configuration File.");
+                    }
+                    catch (FileNotFoundException)
+                    {
+                        CreateErrorDialog("Invalid Configuration File.");
                     }
                     catch (UriFormatException)
                     {
