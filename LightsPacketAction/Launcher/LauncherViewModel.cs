@@ -15,31 +15,32 @@ namespace LightsPacketAction
 {
     public class LauncherViewModel : ViewModelBase
     {
-        private string _address = "";
-
         public List<string> ButtonsList { get; private set; } = new List<string>();
+
+        string _address = "";
         public string ServerAddress
         {
             get { return _address; }
             set { _address = value; OnPropertyChanged("ServerAddress"); }
         }
 
-        private string _port = "";
+        string _port = "";
         public string ServerPort
         {
             get { return _port; }
             set { _port = value; OnPropertyChanged("ServerPort"); }
         }
 
-        private string _overlayImagePath = "";
+        string _overlayImagePath = "";
         public string OverlayImagePath
         {
             get { return _overlayImagePath; }
             set { _overlayImagePath = value;  OnPropertyChanged("OverlayImagePath"); }
         }
-        public ICommand BrowseOverlayImageCommand { get; private set; }
-        public ICommand LaunchDisplayCommand { get; private set; }
-        public ICommand ConfigureCommand { get; private set; }
+
+        public ICommand BrowseOverlayImageCommand { get; }
+        public ICommand LaunchDisplayCommand { get; }
+        public ICommand ConfigureCommand { get; }
 
         public LauncherViewModel()
         {
@@ -80,21 +81,16 @@ namespace LightsPacketAction
                 (p) => {
                     try
                     {
-                        if (IsValidIP(ServerAddress))
-                        {
+                        if (IsValidIP(ServerAddress)) {
                             XmlDocument doc = new XmlDocument();
                             doc.Load("config.xml");
                             XmlNode r = doc.DocumentElement.SelectSingleNode("/Config/Rows");
                             int numRows = int.Parse(r.Attributes["count"]?.InnerText);
                             XmlNode c = doc.DocumentElement.SelectSingleNode("/Config/Columns");
                             int numColumns = int.Parse(c.Attributes["count"]?.InnerText);
-                            XmlNode m = doc.DocumentElement.SelectSingleNode("/Config/Messages");
-                            XmlSerializer xs = new XmlSerializer(typeof(List<string>));
-                            ButtonsList = (List<string>)xs.Deserialize(new XmlNodeReader(m.FirstChild));
-                            for (int i=0; i<ButtonsList.Count; i++)
-                            {
-                                ButtonsList[i] = ButtonsList[i] + "\r";
-                            }
+                            XmlNode m = doc.DocumentElement.SelectSingleNode("/Config/Buttons");
+                            for(var i = 0; i < m.ChildNodes.Count; i++)
+                                ButtonsList.Add(m.ChildNodes.Item(i).Attributes["message"].InnerText + "\r");
 
                             var window = new Window();
                             window.Owner = Application.Current.MainWindow;
@@ -155,7 +151,7 @@ namespace LightsPacketAction
                 });
         }
 
-        public bool IsValidIP(string Address)
+        private bool IsValidIP(string Address)
         {
             //Match pattern for IP address    
             string Pattern = @"^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$"; 
@@ -164,7 +160,7 @@ namespace LightsPacketAction
             return check.IsMatch(Address, 0);
         }
 
-        public void CreateErrorDialog(string errorMessage)
+        private void CreateErrorDialog(string errorMessage)
         {
             CustomWindow window = null;
             window = new CustomWindow(
@@ -182,11 +178,12 @@ namespace LightsPacketAction
         {
             if (!File.Exists("config.xml"))
             {
-                List<string> Temp = new List<string>();
+                List<string> buttonList = new List<string>();
                 for (int i = 1; i < 73; i++)
                 {
-                    Temp.Add("Button" + i.ToString());
+                    buttonList.Add("Button" + i.ToString());
                 }
+
                 XmlWriter xmlWriter = XmlWriter.Create("config.xml");
 
                 xmlWriter.WriteStartDocument();
@@ -204,9 +201,13 @@ namespace LightsPacketAction
                 xmlWriter.WriteAttributeString("count", "12");
                 xmlWriter.WriteEndElement();
 
-                xmlWriter.WriteStartElement("Messages");
-                XmlSerializer xs = new XmlSerializer(Temp.GetType());
-                xs.Serialize(xmlWriter, Temp);
+                xmlWriter.WriteStartElement("Buttons");
+
+                foreach(var button in buttonList) {
+                    xmlWriter.WriteStartElement("Button");
+                    xmlWriter.WriteAttributeString("message", button);
+                    xmlWriter.WriteEndElement();
+                }
 
                 xmlWriter.WriteEndDocument();
                 xmlWriter.Close();
