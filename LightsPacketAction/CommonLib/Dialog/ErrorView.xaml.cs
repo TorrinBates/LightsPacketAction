@@ -3,11 +3,11 @@
 namespace LightsPacketAction
 {
     /// <summary>
-    /// Interaction logic for LauncherView.xaml
+    /// Interaction logic for ErrorView.xaml
     /// </summary>
-    public partial class LauncherView : UserControl
+    public partial class ErrorView : UserControl
     {
-        public LauncherView()
+        public ErrorView()
         {
             InitializeComponent();
         }

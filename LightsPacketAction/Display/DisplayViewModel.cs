@@ -11,12 +11,12 @@ namespace LightsPacketAction
 {
     class DisplayViewModel : ViewModelBase
     {
-        public DisplayViewModel(List<string> buttons, int rows, int columns, string server, Int32 port, RelayCommand close)
+        public DisplayViewModel(Config activeConfig, string server, int port, RelayCommand close)
         {
             CloseDisplay = close;
-            Buttons = buttons;
-            Rows = rows;
-            Columns = columns;
+            Buttons = activeConfig.Buttons;
+            Rows = activeConfig.RowCount;
+            Columns = activeConfig.ColumnCount;
             SendMessage = new RelayCommand(async p =>
             {
 
@@ -62,16 +62,14 @@ namespace LightsPacketAction
         public void CreateErrorDialog(string errorMessage)
         {
             CustomWindow window = null;
-            window = new CustomWindow(
-                new ErrorViewModel(errorMessage,
-                    new RelayCommand((param) =>
+            window = new CustomWindow(new ErrorViewModel(errorMessage,
+                    () =>
                     {
                         window.Close();
                         bbb = null;
-                    })), "Error");
+                    }), "Error");
             window.MinimizeVisibility = Visibility.Collapsed;
             window.XVisibility = Visibility.Collapsed;
-            window.Owner = Application.Current.MainWindow;
             window.Height = 100;
             window.Width = 250;
             bbb = window;

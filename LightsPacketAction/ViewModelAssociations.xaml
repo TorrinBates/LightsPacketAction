@@ -26,4 +26,7 @@
     <DataTemplate DataType="{x:Type local:MessagesViewModel}">
         <local:MessagesView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type local:YesNoViewModel}">
+        <local:YesNoView/>
+    </DataTemplate>
 </ResourceDictionary>

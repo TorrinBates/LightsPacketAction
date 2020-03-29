@@ -57,16 +57,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CommonLib\ErrorView.xaml.cs">
+    <Compile Include="CommonLib\Dialog\DialogFactory.cs" />
+    <Compile Include="CommonLib\Dialog\ErrorView.xaml.cs">
       <DependentUpon>ErrorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CommonLib\ErrorViewModel.cs" />
+    <Compile Include="CommonLib\Dialog\ErrorViewModel.cs" />
+    <Compile Include="CommonLib\Dialog\YesNoView.xaml.cs">
+      <DependentUpon>YesNoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommonLib\Dialog\YesNoViewModel.cs" />
     <Compile Include="CommonLib\RelayCommand.cs" />
     <Page Include="CommonLib\CommonViewResourcesDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CommonLib\ErrorView.xaml">
+    <Page Include="CommonLib\Dialog\ErrorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonLib\Dialog\YesNoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -107,6 +116,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CommonLib\ViewModelBase.cs" />
+    <Compile Include="ConfigHandler.cs" />
     <Compile Include="Configure\DualButtonView.xaml.cs">
       <DependentUpon>DualButtonView.xaml</DependentUpon>
     </Compile>
