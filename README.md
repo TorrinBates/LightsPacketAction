@@ -4,6 +4,7 @@
 ![Fullscreen](https://user-images.githubusercontent.com/43557445/75827195-18fdd080-5d77-11ea-93e0-87e598d47ff5.PNG)
 ## SHORTCUTS
 - Ctrl + M: toggles buttons styles
+- Ctrl + O: toggles editor overlay (Edit Configuration only)
 - Esc: closes full screen window
 - Double Tap Right Corner: closes full screen window
 
