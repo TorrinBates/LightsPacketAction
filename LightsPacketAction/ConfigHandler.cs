@@ -37,7 +37,8 @@ namespace LightsPacketAction {
 
         //Prevent accidental modification to config
         public Config GetActiveConfig() => _config == null ? null : new Config(_config);
-        public void SetActiveConfig(Config config) => _config = config;
+        public void SetActiveConfig(Config config) => _config = new Config(config);
+        public void SetActiveConfig(int rows, int columns, List<string> buttons) => _config = new Config(rows, columns, buttons);
 
         public ConfigHandlerReturnCode SaveConfig(string path = C_ConfigPath) {
             try {
@@ -46,8 +47,7 @@ namespace LightsPacketAction {
                 xmlWriter.WriteStartDocument();
                 xmlWriter.WriteStartElement("Config");
 
-                var config = GetActiveConfig();
-                var row1Elements = new[] { new[] { "Rows", config.RowCount.ToString() }, new[] { "Columns", config.ColumnCount.ToString() } };
+                var row1Elements = new[] { new[] { "Rows", _config.RowCount.ToString() }, new[] { "Columns", _config.ColumnCount.ToString() } };
                 foreach (var element in row1Elements) {
                     xmlWriter.WriteStartElement(element[0]);
                     xmlWriter.WriteAttributeString("count", element[1]);
@@ -55,7 +55,7 @@ namespace LightsPacketAction {
                 }
 
                 xmlWriter.WriteStartElement("Buttons");
-                foreach (var button in config.Buttons) {
+                foreach (var button in _config.Buttons) {
                     xmlWriter.WriteStartElement("Button");
                     xmlWriter.WriteAttributeString("message", button);
                     xmlWriter.WriteEndElement();
@@ -76,7 +76,7 @@ namespace LightsPacketAction {
             for (int i = 0; i < 72; i++)
                 buttons.Add("Button" + (i + 1).ToString());
 
-            SetActiveConfig(new Config(6, 12, buttons));
+            SetActiveConfig(6, 12, buttons);
         }
     }
 

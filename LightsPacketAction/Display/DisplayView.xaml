@@ -96,8 +96,8 @@
                                 </Grid>
                             </Border>
                             <DockPanel HorizontalAlignment="Center" Height="50" Margin="0,15,0,0">
-                                <Button Style="{StaticResource OverlayButtonStyle}" Margin="0,0,20,0" Width="180">Save Configuration</Button>
-                                <Button Style="{StaticResource OverlayButtonStyle}" Width="180">Close Configuration Editor</Button>
+                                <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding SaveCommand}" Margin="0,0,20,0" Width="180">Save Configuration</Button>
+                                <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding CloseCommand}" Width="180">Close Configuration Editor</Button>
                             </DockPanel>
                         </StackPanel>
                     </Grid>

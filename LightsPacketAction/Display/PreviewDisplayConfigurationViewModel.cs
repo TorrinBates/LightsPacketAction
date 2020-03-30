@@ -11,6 +11,7 @@ namespace LightsPacketAction {
         bool _isExceptionBeingAcknowledged = false;
         public PreviewDisplayConfigurationViewModel(Config activeConfig, string address, int port, ImageBrush backgroundBrush) : base(activeConfig) {
             DisplayWindow.Background = backgroundBrush;
+            DisplayWindow.Cursor = Cursors.None;
 
             DisplayWindow.InputBindings.Add(new KeyBinding(new RelayCommand((param) => DisplayLines = !DisplayLines), Key.M, ModifierKeys.Control));
             DisplayWindow.InputBindings.Add(new KeyBinding(new RelayCommand(x => DisplayWindow.Close()), Key.Escape, ModifierKeys.None));

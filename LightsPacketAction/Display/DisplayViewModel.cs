@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -11,7 +9,6 @@ namespace LightsPacketAction
     public abstract class DisplayViewModel : ViewModelBase {
         Config _config;
         public DisplayViewModel(Config activeConfig) {
-
             _config = activeConfig;
 
             Buttons = new ObservableCollection<string>(_config.Buttons);
@@ -22,15 +19,12 @@ namespace LightsPacketAction
                 ResizeMode = ResizeMode.NoResize,
                 WindowState = WindowState.Maximized,
                 WindowStyle = WindowStyle.None,
-                Cursor = Cursors.None,
                 Background = new SolidColorBrush(Color.FromRgb(0, 0, 0)),
                 Content = this
             };
 
             //EditDisplay:
             //Change message on double click
-            //Overlay
-            //Cancel/save config changes
         }
         public ICommand ButtonClickCommand { get; protected set; }
 
