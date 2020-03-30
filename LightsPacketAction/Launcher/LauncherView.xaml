@@ -59,7 +59,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <WrapPanel>
-                <Button Style="{StaticResource MainButtonStyle}" Command="{Binding ConfigureCommand}" Margin="15,0" Grid.Column="1" Width="90" Height="25" HorizontalAlignment="Left">Configure</Button>
+                <Button Style="{StaticResource MainButtonStyle}" Command="{Binding ConfigureCommand}" Margin="15,0" Grid.Column="1" Width="170" Height="25" HorizontalAlignment="Left">Configuration Editor</Button>
                 <Button Style="{StaticResource MainButtonStyle}" Command="{Binding LaunchDisplayCommand}" Margin="15,0" Grid.Column="1" Width="90" Height="25" HorizontalAlignment="Right">Launch</Button>
             </WrapPanel>
         </Grid>

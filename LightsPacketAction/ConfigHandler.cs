@@ -6,8 +6,7 @@ using System.Xml;
 namespace LightsPacketAction {
     public class ConfigHandler {
         const string C_ConfigPath = "config.xml";
-
-        public Config ActiveConfig { get; private set; }
+        Config _config;
 
         public ConfigHandlerReturnCode LoadConfig(string path = C_ConfigPath) {
             XmlDocument doc = new XmlDocument();
@@ -22,7 +21,7 @@ namespace LightsPacketAction {
                 for (var i = 0; i < m.Count; i++)
                     buttons.Add(m.Item(i).Attributes["message"].InnerText + "\r");
 
-                ActiveConfig = new Config(numRows, numColumns, buttons);
+                SetActiveConfig(new Config(numRows, numColumns, buttons));
             } catch (Exception e) {
                 if (e is FileNotFoundException)
                     return new ConfigHandlerReturnCode(ConfigHandlerReturnCodeType.FileNotFound);
@@ -36,6 +35,10 @@ namespace LightsPacketAction {
             return new ConfigHandlerReturnCode(ConfigHandlerReturnCodeType.Success);
         }
 
+        //Prevent accidental modification to config
+        public Config GetActiveConfig() => _config == null ? null : new Config(_config);
+        public void SetActiveConfig(Config config) => _config = config;
+
         public ConfigHandlerReturnCode SaveConfig(string path = C_ConfigPath) {
             try {
                 XmlWriter xmlWriter = XmlWriter.Create(C_ConfigPath);
@@ -43,7 +46,8 @@ namespace LightsPacketAction {
                 xmlWriter.WriteStartDocument();
                 xmlWriter.WriteStartElement("Config");
 
-                var row1Elements = new[] { new[] { "Rows", ActiveConfig.RowCount.ToString() }, new[] { "Columns", ActiveConfig.ColumnCount.ToString() } };
+                var config = GetActiveConfig();
+                var row1Elements = new[] { new[] { "Rows", config.RowCount.ToString() }, new[] { "Columns", config.ColumnCount.ToString() } };
                 foreach (var element in row1Elements) {
                     xmlWriter.WriteStartElement(element[0]);
                     xmlWriter.WriteAttributeString("count", element[1]);
@@ -51,7 +55,7 @@ namespace LightsPacketAction {
                 }
 
                 xmlWriter.WriteStartElement("Buttons");
-                foreach (var button in ActiveConfig.Buttons) {
+                foreach (var button in config.Buttons) {
                     xmlWriter.WriteStartElement("Button");
                     xmlWriter.WriteAttributeString("message", button);
                     xmlWriter.WriteEndElement();
@@ -72,21 +76,29 @@ namespace LightsPacketAction {
             for (int i = 0; i < 72; i++)
                 buttons.Add("Button" + (i + 1).ToString());
 
-            ActiveConfig = new Config(6, 12, buttons);
+            SetActiveConfig(new Config(6, 12, buttons));
         }
     }
 
     public class Config {
+        public Config(Config settings) {
+            SetValues(settings.RowCount, settings.ColumnCount, settings.Buttons);
+        }
+
         public Config(int rowCount, int columnCount, List<string> buttonList) {
-            RowCount = rowCount;
-            ColumnCount = columnCount;
-            Buttons = buttonList;
+            SetValues(rowCount, columnCount, buttonList);
         }
 
         public int RowCount { get; set; }
         public int ColumnCount { get; set; }
         //If we add placement in the future make this a list of custom button objects
         public List<string> Buttons { get; set; }
+
+        private void SetValues(int row, int column, List<string> buttons) {
+            RowCount = row;
+            ColumnCount = column;
+            Buttons = new List<string>(buttons);
+        }
     }
 
     public class ConfigHandlerReturnCode {

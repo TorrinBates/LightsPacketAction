@@ -1,15 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace LightsPacketAction
 {
-    class DisplayViewModel : ViewModelBase
+    public abstract class DisplayViewModel : ViewModelBase {
+        Config _config;
+        public DisplayViewModel(Config activeConfig) {
+
+            _config = activeConfig;
+
+            Buttons = new ObservableCollection<string>(_config.Buttons);
+
+            var closeCommand = new RelayCommand((param) => DisplayWindow.Close());
+            DisplayWindow = new Window() {
+                Owner = Application.Current.MainWindow,
+                ResizeMode = ResizeMode.NoResize,
+                WindowState = WindowState.Maximized,
+                WindowStyle = WindowStyle.None,
+                Cursor = Cursors.None,
+                Background = new SolidColorBrush(Color.FromRgb(0, 0, 0)),
+                Content = this
+            };
+
+            //EditDisplay:
+            //Change message on double click
+            //Overlay
+            //Cancel/save config changes
+        }
+        public ICommand ButtonClickCommand { get; protected set; }
+
+        public int Rows { 
+            get { return _config.RowCount; }
+            set {
+                _config.RowCount = value;
+                AdjustButtonList();
+                OnPropertyChanged("Rows");
+                OnPropertyChanged("Buttons");
+            } 
+        }
+
+        public int Columns {
+            get { return _config.ColumnCount; }
+            set {
+                _config.ColumnCount = value;
+                AdjustButtonList();
+                OnPropertyChanged("Columns");
+                OnPropertyChanged("Buttons");
+            }
+        }
+
+
+        public ObservableCollection<string> Buttons { get; }
+        public virtual bool DisplayLines { get; protected set; } = true;
+
+        protected Window DisplayWindow { get; }
+
+        private void AdjustButtonList() {
+            var total = Rows * Columns;
+            if (total <= 0) Buttons.Clear();
+            else if (total > Buttons.Count) {
+                var count = Buttons.Count;
+                for (var i = 0; i < total - count; i++)
+                    Buttons.Add("Button" + (i + count + 1));
+            } else {
+                Buttons.Clear();
+                for (int i = 0; i < total; i++) Buttons.Add(_config.Buttons[i]);
+            }
+            _config.Buttons = Buttons.ToList();
+        }
+    }
+    /*public class DisplayViewModel : ViewModelBase
     {
         public DisplayViewModel(Config activeConfig, string server, int port, RelayCommand close)
         {
@@ -93,5 +158,5 @@ namespace LightsPacketAction
         public ICommand CloseDisplay { get; private set; }
         public ICommand SendMessage { get; private set; }
         public List<string> Buttons { get; private set; }
-    }
+    }*/
 }

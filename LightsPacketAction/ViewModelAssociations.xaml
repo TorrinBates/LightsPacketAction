@@ -11,21 +11,6 @@
     <DataTemplate DataType="{x:Type local:ErrorViewModel}">
         <local:ErrorView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type local:ConfigureViewModel}">
-        <local:ConfigureView/>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type local:NextViewModel}">
-        <local:NextView/>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type local:DualButtonViewModel}">
-        <local:DualButtonView/>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type local:LayoutViewModel}">
-        <local:LayoutView/>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type local:MessagesViewModel}">
-        <local:MessagesView/>
-    </DataTemplate>
     <DataTemplate DataType="{x:Type local:YesNoViewModel}">
         <local:YesNoView/>
     </DataTemplate>

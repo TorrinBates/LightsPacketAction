@@ -3,10 +3,10 @@
 namespace LightsPacketAction {
     public static class DialogFactory {
 
-        public static void CreateErrorDialog(string errorMessage) {
+        public static void CreateErrorDialog(string errorMessage, Window owner = null) {
             CustomWindow window = null;
             window = new CustomWindow(new ErrorViewModel(errorMessage, () => window.Close()), "Error");
-            window.Owner = Application.Current.MainWindow;
+            window.Owner = owner ?? Application.Current.MainWindow;
             window.MinimizeVisibility = Visibility.Collapsed;
             window.XVisibility = Visibility.Collapsed;
             window.MaxWidth = 300;

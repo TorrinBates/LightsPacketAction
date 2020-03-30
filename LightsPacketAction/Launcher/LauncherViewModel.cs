@@ -1,24 +1,17 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Drawing.Imaging;
-using System.Windows;
-using System.IO;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Text.RegularExpressions;
-using System.Xml;
 
 namespace LightsPacketAction
 {
     public class LauncherViewModel : ViewModelBase
     {
-        ConfigHandler _configHandler;
-
         public LauncherViewModel(ConfigHandler configHandler)
         {
-            _configHandler = configHandler;
-
             BrowseOverlayImageCommand = new RelayCommand((p) => {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = "";
@@ -36,11 +29,7 @@ namespace LightsPacketAction
             });
 
             ConfigureCommand = new RelayCommand((p) => {
-                CustomWindow window = null;
-                window = new CustomWindow(new ConfigureViewModel(), "Configure");
-                window.Height = 500;
-                window.Width = 400;
-                window.ShowDialog();
+                new EditDisplayConfigurationViewModel(configHandler);
             });
 
             LaunchDisplayCommand = new RelayCommand(
@@ -70,27 +59,8 @@ namespace LightsPacketAction
                         DialogFactory.CreateErrorDialog("Image file type not supported.");
                         return;
                     }
-                    
-                    Window window = null;
-                    var closeCommand = new RelayCommand((param) => window.Close());
-                    window = new Window() {
-                        Owner = Application.Current.MainWindow,
-                        ResizeMode = ResizeMode.NoResize,
-                        WindowState = WindowState.Maximized,
-                        WindowStyle = WindowStyle.None,
-                        Cursor = Cursors.None,
-                        Background = brush,
-                        Content = new DisplayViewModel(_configHandler.ActiveConfig, ServerAddress, port, closeCommand)
-                    };
 
-                    window.InputBindings.Add(new KeyBinding(
-                        new RelayCommand((param) => ((DisplayViewModel)window.Content).DisplayLines = !((DisplayViewModel)window.Content).DisplayLines), 
-                        Key.M, ModifierKeys.Control)
-                    );
-
-                    window.InputBindings.Add(new KeyBinding(closeCommand, Key.Escape, ModifierKeys.None));
-
-                    window.ShowDialog();
+                    new PreviewDisplayConfigurationViewModel(configHandler.GetActiveConfig(), ServerAddress, port, brush);
                 });
         }
 
