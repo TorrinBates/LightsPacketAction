@@ -13,7 +13,6 @@ namespace LightsPacketAction
 
             Buttons = new ObservableCollection<string>(_config.Buttons);
 
-            var closeCommand = new RelayCommand((param) => DisplayWindow.Close());
             DisplayWindow = new Window() {
                 Owner = Application.Current.MainWindow,
                 ResizeMode = ResizeMode.NoResize,
@@ -23,10 +22,24 @@ namespace LightsPacketAction
                 Content = this
             };
 
+            ToggleOverlayCommand = new RelayCommand(x => IsOverlayEnabled = x is bool ? (bool)x : !IsOverlayEnabled);
+            CloseCommand = new RelayCommand(x => DisplayWindow.Close());
+
+            DisplayWindow.InputBindings.Add(new KeyBinding(ToggleOverlayCommand, Key.O, ModifierKeys.Control));
+            DisplayWindow.InputBindings.Add(new KeyBinding(new RelayCommand(x => {
+                if (IsOverlayEnabled)
+                    ToggleOverlayCommand.Execute(false);
+                else CloseCommand.Execute(null); 
+            }), Key.Escape, ModifierKeys.None));
+
             //EditDisplay:
             //Change message on double click
         }
+
         public ICommand ButtonClickCommand { get; protected set; }
+        public ICommand ToggleOverlayCommand { get; }
+        public ICommand ExitOverlayCommand { get; }
+        public virtual ICommand CloseCommand { get; }
 
         public int Rows { 
             get { return _config.RowCount; }
@@ -50,7 +63,24 @@ namespace LightsPacketAction
 
 
         public ObservableCollection<string> Buttons { get; }
-        public virtual bool DisplayLines { get; protected set; } = true;
+
+        bool _isOverlayEnabled;
+        public virtual bool IsOverlayEnabled { 
+            get => _isOverlayEnabled; 
+            protected set { 
+                _isOverlayEnabled = value; 
+                OnPropertyChanged("IsOverlayEnabled"); 
+            } 
+        }
+
+        bool _displayLines = false;
+        public bool DisplayLines { 
+            get => _displayLines;
+            protected set {
+                _displayLines = value;
+                OnPropertyChanged("DisplayLines");
+            } 
+        }
 
         protected Window DisplayWindow { get; }
 

@@ -14,7 +14,6 @@ namespace LightsPacketAction {
             DisplayWindow.Cursor = Cursors.None;
 
             DisplayWindow.InputBindings.Add(new KeyBinding(new RelayCommand((param) => DisplayLines = !DisplayLines), Key.M, ModifierKeys.Control));
-            DisplayWindow.InputBindings.Add(new KeyBinding(new RelayCommand(x => DisplayWindow.Close()), Key.Escape, ModifierKeys.None));
 
             ButtonClickCommand = new RelayCommand(async p => {
                 int t = await Task<int>.Factory.StartNew(() => {
@@ -56,12 +55,11 @@ namespace LightsPacketAction {
             DisplayWindow.ShowDialog();
         }
 
-        bool _displayLines;
-        public override bool DisplayLines {
-            get { return _displayLines; }
+        public override bool IsOverlayEnabled { 
+            get => base.IsOverlayEnabled;
             protected set {
-                _displayLines = value;
-                OnPropertyChanged("DisplayLines");
+                base.IsOverlayEnabled = value;
+                DisplayWindow.Cursor = value ? null : Cursors.None;
             }
         }
     }

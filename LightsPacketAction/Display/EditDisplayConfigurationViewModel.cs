@@ -14,27 +14,16 @@ namespace LightsPacketAction {
 
             CloseCommand = new RelayCommand(x => {
                 var result = DialogFactory.CreateYesNoDialog("Are you sure you would like to exit? You will lose any changes you have made from the last time you saved!");
-                if(result) DisplayWindow.Close();
+                if(result) base.CloseCommand.Execute(null);
             });
 
-            DisplayWindow.InputBindings.Add(new KeyBinding(new RelayCommand(p => OverlayEnabled = !OverlayEnabled), Key.O, ModifierKeys.Control));
-
+            DisplayLines = true;
+            DisplayWindow.Cursor = null;
             DisplayWindow.Show();
         }
 
         public ICommand SaveCommand { get; }
-        public ICommand CloseCommand { get; }
-
-        bool _overlayEnabled;
-        public bool OverlayEnabled { 
-            get { return _overlayEnabled; } 
-            private set { 
-                _overlayEnabled = value;
-                if (value) DisplayWindow.Cursor = null;
-                else DisplayWindow.Cursor = Cursors.None;
-                OnPropertyChanged("OverlayEnabled");
-            }
-        }
+        public override ICommand CloseCommand { get; }
 
         private bool HasConfigChanged() {
             var currentConfig = _configHandler.GetActiveConfig();

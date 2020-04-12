@@ -49,6 +49,11 @@
         
     </UserControl.Resources>
     <Grid>
+        <Button Height="60" Width="60" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource DisplayCloseStyle}">
+            <Button.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ToggleOverlayCommand}" CommandParameter="True"/>
+            </Button.InputBindings>
+        </Button>
         <ItemsControl Margin="40,70,40,40" ItemsSource="{Binding Buttons}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -62,22 +67,16 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ContentControl Content="{Binding}">
-            <ContentControl.Resources>
-                <!--Previewing Configuration Display-->
-                <DataTemplate DataType="{x:Type local:PreviewDisplayConfigurationViewModel}">
-                    <DockPanel>
-                        <Button Height="60" Width="60" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource DisplayCloseStyle}">
-                            <Button.InputBindings>
-                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding CloseDisplay}"/>
-                            </Button.InputBindings>
-                        </Button>
-                    </DockPanel>
-                </DataTemplate>
-
-                <!--Edit Configuration Display-->
-                <DataTemplate DataType="{x:Type local:EditDisplayConfigurationViewModel}">
-                    <Grid Background="#E5000000" Visibility="{Binding OverlayEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+        <Grid Background="#E5000000" Visibility="{Binding IsOverlayEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="36" Margin="0,20,20,0" Height="60" Width="60" Foreground="White" Background="Transparent" BorderBrush="Transparent" Command="{Binding ToggleOverlayCommand}" CommandParameter="False">x</Button>
+            <ContentControl Content="{Binding}">
+                <ContentControl.Resources>
+                    <!--Preview Overlay-->
+                    <DataTemplate DataType="{x:Type local:PreviewDisplayConfigurationViewModel}">
+                        <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding CloseCommand}" FontSize="30" Width="200" Height="200">Exit</Button>
+                    </DataTemplate>
+                    <!--Edit Configuration Overlay-->
+                    <DataTemplate DataType="{x:Type local:EditDisplayConfigurationViewModel}">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Border BorderBrush="#FFC70D" BorderThickness="2" Width="400">
                                 <Grid Background="#FF050505">
@@ -100,9 +99,9 @@
                                 <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding CloseCommand}" Width="180">Close Configuration Editor</Button>
                             </DockPanel>
                         </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Grid>
     </Grid>
 </UserControl>
