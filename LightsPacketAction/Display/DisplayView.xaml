@@ -73,7 +73,13 @@
                 <ContentControl.Resources>
                     <!--Preview Overlay-->
                     <DataTemplate DataType="{x:Type local:PreviewDisplayConfigurationViewModel}">
-                        <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding CloseCommand}" FontSize="30" Width="200" Height="200">Exit</Button>
+                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding ToggleButtonMapCommand}" 
+                                    Margin="0,0,20,0" FontSize="28" Width="200" Height="200">
+                                <TextBlock Margin="5" Text="Toggle Button Map" TextWrapping="Wrap" TextAlignment="Center"/>
+                            </Button>
+                            <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding CloseCommand}" FontSize="28" Width="200" Height="200">Exit Preview</Button>
+                        </WrapPanel>
                     </DataTemplate>
                     <!--Edit Configuration Overlay-->
                     <DataTemplate DataType="{x:Type local:EditDisplayConfigurationViewModel}">

@@ -15,6 +15,8 @@ namespace LightsPacketAction {
 
             DisplayWindow.InputBindings.Add(new KeyBinding(new RelayCommand((param) => DisplayLines = !DisplayLines), Key.M, ModifierKeys.Control));
 
+            ToggleButtonMapCommand = new RelayCommand(x => DisplayLines = !DisplayLines);
+
             ButtonClickCommand = new RelayCommand(async p => {
                 int t = await Task<int>.Factory.StartNew(() => {
                     try {
@@ -54,6 +56,8 @@ namespace LightsPacketAction {
 
             DisplayWindow.ShowDialog();
         }
+
+        public ICommand ToggleButtonMapCommand { get; }
 
         public override bool IsOverlayEnabled { 
             get => base.IsOverlayEnabled;
