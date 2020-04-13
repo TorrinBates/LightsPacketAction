@@ -83,6 +83,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Display\EditConfig\EditButtonMessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Launcher\LauncherView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -98,12 +102,18 @@
     <Compile Include="CommonLib\ViewModelBase.cs" />
     <Compile Include="ConfigHandler.cs" />
     <Compile Include="CommonLib\BooleanToStyleConverter.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Display\ButtonViewModel.cs" />
     <Compile Include="Display\DisplayView.xaml.cs">
       <DependentUpon>DisplayView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Display\DisplayViewModel.cs" />
-    <Compile Include="Display\EditDisplayConfigurationViewModel.cs" />
-    <Compile Include="Display\PreviewDisplayConfigurationViewModel.cs" />
+    <Compile Include="Display\EditConfig\EditButtonMessageView.xaml.cs">
+      <DependentUpon>EditButtonMessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\EditConfig\EditButtonMessageViewModel.cs" />
+    <Compile Include="Display\EditConfig\EditDisplayConfigurationViewModel.cs" />
+    <Compile Include="Display\PreviewConfig\PreviewDisplayConfigurationViewModel.cs" />
     <Compile Include="Launcher\LauncherView.xaml.cs">
       <DependentUpon>LauncherView.xaml</DependentUpon>
     </Compile>

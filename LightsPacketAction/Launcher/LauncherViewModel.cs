@@ -38,17 +38,17 @@ namespace LightsPacketAction
                        !string.IsNullOrWhiteSpace(ServerAddress),
                 (p) => {
                     if (!IsValidIP(ServerAddress)) {
-                        DialogFactory.CreateErrorDialog("The IP address is invalid.");
+                        DialogFactory.CreateErrorDialog(Constants.C_LaunchError, "The IP address is invalid.");
                         return;
                     }
 
                     if(!int.TryParse(ServerPort, out int port)) {
-                        DialogFactory.CreateErrorDialog("Port must only contain numbers.");
+                        DialogFactory.CreateErrorDialog(Constants.C_LaunchError, "Port must only contain numbers.");
                         return;
                     }
 
                     if(!Uri.TryCreate(OverlayImagePath, UriKind.RelativeOrAbsolute, out Uri imageUri)) {
-                        DialogFactory.CreateErrorDialog("The image path is incorrect.");
+                        DialogFactory.CreateErrorDialog(Constants.C_LaunchError, "The image path is incorrect.");
                         return;
                     }
 
@@ -56,7 +56,7 @@ namespace LightsPacketAction
                     try {
                         brush = new ImageBrush(new BitmapImage(imageUri));
                     } catch(NotSupportedException) {
-                        DialogFactory.CreateErrorDialog("Image file type not supported.");
+                        DialogFactory.CreateErrorDialog(Constants.C_LaunchError, "Image file type not supported.");
                         return;
                     }
 

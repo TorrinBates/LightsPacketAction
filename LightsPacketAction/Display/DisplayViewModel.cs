@@ -11,7 +11,10 @@ namespace LightsPacketAction
         public DisplayViewModel(Config activeConfig) {
             _config = activeConfig;
 
-            Buttons = new ObservableCollection<string>(_config.Buttons);
+            Buttons = new ObservableCollection<ButtonViewModel>(_config.Buttons.Select(x => new ButtonViewModel(x)));
+
+            Rows = _config.RowCount;
+            Columns = _config.ColumnCount;
 
             DisplayWindow = new Window() {
                 Owner = Application.Current.MainWindow,
@@ -36,33 +39,33 @@ namespace LightsPacketAction
             //Change message on double click
         }
 
-        public ICommand ButtonClickCommand { get; protected set; }
+        public virtual ICommand ButtonClickCommand { get; }
         public ICommand ToggleOverlayCommand { get; }
         public ICommand ExitOverlayCommand { get; }
         public virtual ICommand CloseCommand { get; }
 
+        int _rows;
         public int Rows { 
-            get { return _config.RowCount; }
+            get => _rows;
             set {
-                _config.RowCount = value;
+                _rows = value;
                 AdjustButtonList();
                 OnPropertyChanged("Rows");
-                OnPropertyChanged("Buttons");
             } 
         }
 
+        int _columns;
         public int Columns {
-            get { return _config.ColumnCount; }
+            get => _columns;
             set {
-                _config.ColumnCount = value;
+                _columns = value;
                 AdjustButtonList();
                 OnPropertyChanged("Columns");
-                OnPropertyChanged("Buttons");
             }
         }
 
 
-        public ObservableCollection<string> Buttons { get; }
+        public ObservableCollection<ButtonViewModel> Buttons { get; }
 
         bool _isOverlayEnabled;
         public virtual bool IsOverlayEnabled { 
@@ -86,101 +89,10 @@ namespace LightsPacketAction
 
         private void AdjustButtonList() {
             var total = Rows * Columns;
+            var count = Buttons.Count;
             if (total <= 0) Buttons.Clear();
-            else if (total > Buttons.Count) {
-                var count = Buttons.Count;
-                for (var i = 0; i < total - count; i++)
-                    Buttons.Add("Button" + (i + count + 1));
-            } else {
-                Buttons.Clear();
-                for (int i = 0; i < total; i++) Buttons.Add(_config.Buttons[i]);
-            }
-            _config.Buttons = Buttons.ToList();
+            else if (total > count) for (var i = 0; i < total - count; i++) Buttons.Add(new ButtonViewModel("Button" + (i + count + 1)));
+            else if (total < count) for (int i = count-1; i > total - 1; i--) Buttons.RemoveAt(i);
         }
     }
-    /*public class DisplayViewModel : ViewModelBase
-    {
-        public DisplayViewModel(Config activeConfig, string server, int port, RelayCommand close)
-        {
-            CloseDisplay = close;
-            Buttons = activeConfig.Buttons;
-            Rows = activeConfig.RowCount;
-            Columns = activeConfig.ColumnCount;
-            SendMessage = new RelayCommand(async p =>
-            {
-
-                int t = await Task<int>.Factory.StartNew(() =>
-                {
-                    try
-                    {
-                        TcpClient client = new TcpClient();
-
-                        if (!client.ConnectAsync(server, port).Wait(2000))
-                        {
-                            return 2;
-                        }
-                        Byte[] data = Encoding.ASCII.GetBytes((string)p);
-
-                        NetworkStream stream = client.GetStream();
-                        stream.Write(data, 0, data.Length);
-
-                        stream.Close();
-                        client.Close();
-                        return 0;
-                    }
-                    catch (IOException)
-                    {
-                        return 1;
-                    }
-                    catch (SocketException)
-                    {
-                        return 2;
-                    }
-                });
-                if (bbb == null && t==1)
-                {
-                    CreateErrorDialog("Connection lost, message not sent.");
-                }
-                if (bbb == null && t==2)
-                {
-                    CreateErrorDialog("Unable to connect to host.");
-                }
-            });
-        }
-
-        public void CreateErrorDialog(string errorMessage)
-        {
-            CustomWindow window = null;
-            window = new CustomWindow(new ErrorViewModel(errorMessage,
-                    () =>
-                    {
-                        window.Close();
-                        bbb = null;
-                    }), "Error");
-            window.MinimizeVisibility = Visibility.Collapsed;
-            window.XVisibility = Visibility.Collapsed;
-            window.Height = 100;
-            window.Width = 250;
-            bbb = window;
-            window.ShowDialog();
-        }
-
-        private bool _displayLines = false;
-        public bool DisplayLines
-        {
-            get { return _displayLines;}
-            set
-            {
-                _displayLines = value;
-                OnPropertyChanged("DisplayLines");
-            }
-        }
-
-        private CustomWindow bbb = null;
-        public int Rows { get; private set; }
-        public int Columns { get; private set; }
-        public ICommand CloseDisplay { get; private set; }
-        public ICommand SendMessage { get; private set; }
-        public List<string> Buttons { get; private set; }
-    }*/
 }

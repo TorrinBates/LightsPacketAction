@@ -62,7 +62,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Style="{Binding DataContext.DisplayLines, Converter={StaticResource MyButtonStyleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}"
+                    <Button ToolTipService.ToolTip="{Binding Message}" Style="{Binding DataContext.DisplayLines, Converter={StaticResource MyButtonStyleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}"
                                     Command="{Binding DataContext.ButtonClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}" CommandParameter="{Binding}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

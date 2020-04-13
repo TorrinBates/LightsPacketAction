@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="LightsPacketAction.YesNoView"
+﻿<UserControl x:Class="LightsPacketAction.EditButtonMessageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,10 +11,13 @@
             <RowDefinition/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Center" Grid.Row="0" Text="{Binding Message}" Margin="0,0,0,10" TextWrapping="Wrap"/>
+        <StackPanel>
+            <TextBlock HorizontalAlignment="Left"  Text="Edit Message to Send:" Margin="0,0,0,10"/>
+            <TextBox Height="25" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="200" Text="{Binding ButtonMessage}"/>
+        </StackPanel>
         <DockPanel Grid.Row="1" HorizontalAlignment="Center" Width="180">
-            <Button Style="{StaticResource MainButtonStyle}" HorizontalAlignment="Left" Width="80" Command="{Binding YesCommand}">Yes</Button>
-            <Button Style="{StaticResource MainButtonStyle}" HorizontalAlignment="Right" Width="80" Command="{Binding NoCommand}">No</Button>
+            <Button Style="{StaticResource MainButtonStyle}" HorizontalAlignment="Left" Width="80" Command="{Binding CloseCommand}" CommandParameter="true">Save</Button>
+            <Button Style="{StaticResource MainButtonStyle}" HorizontalAlignment="Right" Width="80" Command="{Binding CloseCommand}">Cancel</Button>
         </DockPanel>
     </Grid>
 </UserControl>

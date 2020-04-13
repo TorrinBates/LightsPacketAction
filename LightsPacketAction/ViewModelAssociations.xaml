@@ -14,4 +14,7 @@
     <DataTemplate DataType="{x:Type local:YesNoViewModel}">
         <local:YesNoView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type local:EditButtonMessageViewModel}">
+        <local:EditButtonMessageView/>
+    </DataTemplate>
 </ResourceDictionary>

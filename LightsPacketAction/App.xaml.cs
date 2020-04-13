@@ -24,18 +24,19 @@ namespace LightsPacketAction
                 _configHandler.CreateNewConfig();
                 if (rc.ReturnCode == ConfigHandlerReturnCodeType.InvalidConfiguration) {
                     var result = DialogFactory.CreateYesNoDialog(
+                        Constants.C_ConfigErrorTitle,
                         "Could not load configuration file due to it being invalid.\n\nUsing a new configuration for now. Would you like to overwrite the new configuration with the new configuration?"
                     );
                     if (result) AttemptToSaveConfig();
                 } else if (rc.ReturnCode == ConfigHandlerReturnCodeType.FileNotFound)
                     AttemptToSaveConfig();
-                else DialogFactory.CreateErrorDialog(rc.Reason);
+                else DialogFactory.CreateErrorDialog(Constants.C_ConfigErrorTitle, rc.Reason);
             }
         }
 
         private void AttemptToSaveConfig() {
             var saveRc = _configHandler.SaveConfig();
-            if (saveRc.ReturnCode != ConfigHandlerReturnCodeType.Success) DialogFactory.CreateErrorDialog(saveRc.Reason);
+            if (saveRc.ReturnCode != ConfigHandlerReturnCodeType.Success) DialogFactory.CreateErrorDialog(Constants.C_ConfigErrorTitle, saveRc.Reason);
         }
     }
 }

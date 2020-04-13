@@ -23,7 +23,7 @@ namespace LightsPacketAction {
                         using (TcpClient client = new TcpClient()) {
                             if (!client.ConnectAsync(address, port).Wait(2000)) return 2;
 
-                            byte[] data = Encoding.ASCII.GetBytes((string)p);
+                            byte[] data = Encoding.ASCII.GetBytes(((ButtonViewModel)p).Message);
 
                             using (NetworkStream stream = client.GetStream()) {
                                 stream.Write(data, 0, data.Length);
@@ -45,11 +45,11 @@ namespace LightsPacketAction {
 
                 if (!_isExceptionBeingAcknowledged && t == 1) {
                     _isExceptionBeingAcknowledged = true;
-                    DialogFactory.CreateErrorDialog("Connection lost, message not sent.", DisplayWindow);
+                    DialogFactory.CreateErrorDialog(Constants.C_ConnectionError, "Connection lost, message not sent.", DisplayWindow);
                     _isExceptionBeingAcknowledged = false;
                 } else if (!_isExceptionBeingAcknowledged && t == 2) {
                     _isExceptionBeingAcknowledged = true;
-                    DialogFactory.CreateErrorDialog("Unable to connect to host.", DisplayWindow);
+                    DialogFactory.CreateErrorDialog(Constants.C_ConnectionError, "Unable to connect to host.", DisplayWindow);
                     _isExceptionBeingAcknowledged = false;
                 }
             });
@@ -58,6 +58,7 @@ namespace LightsPacketAction {
         }
 
         public ICommand ToggleButtonMapCommand { get; }
+        public override ICommand ButtonClickCommand { get; }
 
         public override bool IsOverlayEnabled { 
             get => base.IsOverlayEnabled;
