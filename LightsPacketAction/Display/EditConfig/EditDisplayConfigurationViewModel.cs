@@ -14,8 +14,9 @@ namespace LightsPacketAction {
             });
 
             CloseCommand = new RelayCommand(x => {
-                var result = DialogFactory.CreateYesNoDialog("Exit Configuration", "Are you sure you would like to exit? You will lose any changes you have made since the last time you saved!");
-                if(result) base.CloseCommand.Execute(null);
+                var hasConfigChanged = HasConfigChanged();
+                if(!hasConfigChanged || (hasConfigChanged && DialogFactory.CreateYesNoDialog("Exit Configuration", "Are you sure you would like to exit? You will lose any changes you have made since the last time you saved!")))
+                    base.CloseCommand.Execute(null);
             });
 
             ButtonClickCommand = new RelayCommand(x => {
