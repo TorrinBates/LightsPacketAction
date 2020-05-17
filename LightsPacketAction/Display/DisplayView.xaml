@@ -95,9 +95,9 @@
                                         <RowDefinition Height="30"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="White" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="Row Count: "/>
-                                    <TextBox VerticalAlignment="Center" Grid.Column="1" Height="20" Grid.Row="0" Width="25" HorizontalAlignment="Left" Text="{Binding Rows}"/>
+                                    <TextBox VerticalAlignment="Center" Grid.Column="1" Height="20" Grid.Row="0" Width="25" HorizontalAlignment="Left" Text="{Binding Rows, UpdateSourceTrigger=PropertyChanged}"/>
                                     <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="White" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Text="Column Count: "/>
-                                    <TextBox VerticalAlignment="Center" Grid.Column="1" Height="20" Grid.Row="1" Width="25" HorizontalAlignment="Left" Text="{Binding Columns}"/>
+                                    <TextBox VerticalAlignment="Center" Grid.Column="1" Height="20" Grid.Row="1" Width="25" HorizontalAlignment="Left" Text="{Binding Columns, UpdateSourceTrigger=PropertyChanged}"/>
                                 </Grid>
                             </Border>
                             <DockPanel HorizontalAlignment="Center" Height="50" Margin="0,15,0,0">
