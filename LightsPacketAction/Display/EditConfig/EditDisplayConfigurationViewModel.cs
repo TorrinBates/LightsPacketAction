@@ -33,7 +33,6 @@ namespace LightsPacketAction {
 
                 if (vm.Result) {
                     button.Message = vm.ButtonMessage;
-                    if(SaveCommand.CanExecute(null)) SaveCommand.Execute(null);
                 }
             });
 

@@ -23,7 +23,7 @@ namespace LightsPacketAction {
                         using (TcpClient client = new TcpClient()) {
                             if (!client.ConnectAsync(address, port).Wait(2000)) return 2;
 
-                            byte[] data = Encoding.ASCII.GetBytes(((ButtonViewModel)p).Message);
+                            byte[] data = Encoding.ASCII.GetBytes(((ButtonViewModel)p).Message+"\r");
 
                             using (NetworkStream stream = client.GetStream()) {
                                 stream.Write(data, 0, data.Length);

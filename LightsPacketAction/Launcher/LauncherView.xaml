@@ -8,27 +8,27 @@
 
     <UserControl.Resources>
         <Style TargetType="TextBox">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TextBox}">
-                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="#c5c5c7"/>
-                        </Trigger>
-                        <Trigger Property="IsFocused" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="#c5c5c7"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#c5c5c7"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#c5c5c7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     
     <StackPanel>
@@ -41,9 +41,9 @@
 
             <StackPanel DockPanel.Dock="Left">
                 <TextBox Margin="0,0,0,10" BorderBrush="#1D1D1D" Height="19" Width="300" Foreground="#c5c5c7" 
-                         Background="#3F3F46" Text="{Binding ServerAddress, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                         Background="#3F3F46" Text="{Binding ServerAddress, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Margin="0,0,0,10" BorderBrush="#1D1D1D" Height="19" Width="300" Foreground="#c5c5c7" 
-                         Background="#3F3F46" Text="{Binding ServerPort, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                         Background="#3F3F46" Text="{Binding ServerPort, UpdateSourceTrigger=PropertyChanged}"/>
                 <DockPanel Width="300">
                     <TextBox DockPanel.Dock="Left" Margin="0,0,6,0" Width="240" 
                              BorderBrush="#1D1D1D" Height="19" Foreground="#c5c5c7" Background="#3F3F46"

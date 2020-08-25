@@ -74,7 +74,7 @@ namespace LightsPacketAction {
         public void CreateNewConfig() {
             var buttons = new List<string>();
             for (int i = 0; i < 72; i++)
-                buttons.Add("Button" + (i + 1).ToString());
+                buttons.Add("Button"+(i + 1).ToString());
 
             SetActiveConfig(6, 12, buttons);
         }

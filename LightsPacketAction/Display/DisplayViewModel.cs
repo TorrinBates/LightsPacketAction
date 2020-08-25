@@ -13,8 +13,8 @@ namespace LightsPacketAction
 
             Buttons = new ObservableCollection<ButtonViewModel>(_config.Buttons.Select(x => new ButtonViewModel(x)));
 
-            Rows = _config.RowCount;
-            Columns = _config.ColumnCount;
+            _rows = _config.RowCount;
+            _columns = _config.ColumnCount;
 
             DisplayWindow = new Window() {
                 Owner = Application.Current.MainWindow,

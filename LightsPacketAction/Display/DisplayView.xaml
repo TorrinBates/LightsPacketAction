@@ -68,7 +68,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <Grid Background="#E5000000" Visibility="{Binding IsOverlayEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
-            <Button HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="36" Margin="0,20,20,0" Height="60" Width="60" Foreground="White" Background="Transparent" BorderBrush="Transparent" Command="{Binding ToggleOverlayCommand}" CommandParameter="False">x</Button>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="36" Margin="0,20,20,0" Height="60" Width="60" Style="{StaticResource DisplayViewXButtonStyle}" Command="{Binding ToggleOverlayCommand}" CommandParameter="False">x</Button>
             <ContentControl Content="{Binding}">
                 <ContentControl.Resources>
                     <!--Preview Overlay-->
