@@ -17,7 +17,7 @@
 - Click buttons to send message
 
 ## MESSAGE
-- Messages are formatted as "Button#\r" so an example of how the message might look is "Button21"
+- Messages are editable and "\r" end carriage is added at the time of button press.  (Different line endings can be added if need be)
 
 ## USING PACKET RECEIVER
 - Run PacketReceiver.exe via command line by providing exe path followed by the receiving IP address and the port
