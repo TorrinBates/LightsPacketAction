@@ -8,6 +8,8 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <local:BooleanToStyleConverter x:Key="MyButtonStyleConverter" TrueStyle="{StaticResource DisplayOutlineStyle}" FalseStyle="{StaticResource DisplayButtonStyle}"/>
+        <local:BooleanToVisibility x:Key="Normal" Inverted="False" />
+        <local:BooleanToVisibility x:Key="Inverted" Inverted="True" />
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
         <Style x:Key="OverlayButtonStyle" TargetType="Button">
@@ -19,7 +21,9 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ButtonBase}">
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" 
+                                              Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="Button.IsDefaulted" Value="True">
@@ -62,7 +66,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button ToolTipService.ToolTip="{Binding Message}" Style="{Binding DataContext.DisplayLines, Converter={StaticResource MyButtonStyleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}"
+                    <Button Content="{Binding Message}" Style="{Binding DataContext.DisplayLines, Converter={StaticResource MyButtonStyleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}"
                                     Command="{Binding DataContext.ButtonClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DisplayView}}}" CommandParameter="{Binding}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -84,26 +88,47 @@
                     <!--Edit Configuration Overlay-->
                     <DataTemplate DataType="{x:Type local:EditDisplayConfigurationViewModel}">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Border BorderBrush="#FFC70D" BorderThickness="2" Width="400">
-                                <Grid Background="#FF050505">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="30"/>
-                                        <RowDefinition Height="30"/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="White" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="Row Count: "/>
-                                    <TextBox VerticalAlignment="Center" Grid.Column="1" Height="20" Grid.Row="0" Width="25" HorizontalAlignment="Left" Text="{Binding Rows, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="White" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Text="Column Count: "/>
-                                    <TextBox VerticalAlignment="Center" Grid.Column="1" Height="20" Grid.Row="1" Width="25" HorizontalAlignment="Left" Text="{Binding Columns, UpdateSourceTrigger=PropertyChanged}"/>
-                                </Grid>
-                            </Border>
-                            <DockPanel HorizontalAlignment="Center" Height="50" Margin="0,15,0,0">
-                                <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding SaveCommand}" Margin="0,0,20,0" Width="180">Save Configuration</Button>
-                                <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding CloseCommand}" Width="180">Close Configuration Editor</Button>
-                            </DockPanel>
+                            <StackPanel Visibility="{Binding EditingButton, Converter={StaticResource Inverted}}">
+                                <Border BorderBrush="#FFC70D" BorderThickness="2" Width="400">
+                                    <Grid Background="#FF050505">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="30"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="White" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="Row Count: "/>
+                                        <TextBox VerticalAlignment="Center" Grid.Column="1" Height="20" Grid.Row="0" Width="25" HorizontalAlignment="Left" Text="{Binding Rows, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="White" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Text="Column Count: "/>
+                                        <TextBox VerticalAlignment="Center" Grid.Column="1" Height="20" Grid.Row="1" Width="25" HorizontalAlignment="Left" Text="{Binding Columns, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Grid>
+                                </Border>
+                                <DockPanel HorizontalAlignment="Center" Height="50" Margin="0,15,0,0">
+                                    <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding SaveCommand}" Margin="0,0,20,0" Width="180">Save Configuration</Button>
+                                    <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding CloseCommand}" Width="180">Close Configuration Editor</Button>
+                                </DockPanel>
+                            </StackPanel>
+                            <StackPanel Visibility="{Binding EditingButton, Converter={StaticResource Normal}}">
+                                <Border BorderBrush="#FFC70D" BorderThickness="2" Width="400">
+                                    <Grid Background="#FF050505">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="30"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="White" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="Message: "/>
+                                        <TextBox VerticalAlignment="Center" Grid.Column="1" Height="20" Grid.Row="0" Width="60" HorizontalAlignment="Left" Text="{Binding CurrentButton.ButtonMessage, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Grid>
+                                </Border>
+                                <DockPanel HorizontalAlignment="Center" Height="50" Margin="0,15,0,0">
+                                    <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding CurrentButton.OkayCommand}" Margin="0,0,20,0" Width="120">Ok</Button>
+                                </DockPanel>
+                            </StackPanel>
                         </StackPanel>
                     </DataTemplate>
                 </ContentControl.Resources>

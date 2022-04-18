@@ -3,17 +3,16 @@ using System.Windows.Input;
 
 namespace LightsPacketAction {
     public class EditButtonMessageViewModel : ViewModelBase {
-        public EditButtonMessageViewModel(string defaultValue, Action close) {
+        public EditButtonMessageViewModel(string defaultValue, Action<string> okay) {
+            _initialMessage = defaultValue;
             ButtonMessage = defaultValue;
 
-            CloseCommand = new RelayCommand(x => {
-                if (bool.TryParse(x as string, out bool resultVal)) Result = resultVal;
-                close();
-            });
+            OkayCommand = new RelayCommand(x => _initialMessage != _buttonMessage, x => okay(ButtonMessage));
         }
 
-        public ICommand CloseCommand { get; }
+        public ICommand OkayCommand { get; }
 
+        string _initialMessage;
         string _buttonMessage;
         public string ButtonMessage { 
             get => _buttonMessage;
@@ -22,7 +21,5 @@ namespace LightsPacketAction {
                 OnPropertyChanged("ButtonMessage");
             } 
         }
-
-        public bool Result { get; private set; } = false;
     }
 }

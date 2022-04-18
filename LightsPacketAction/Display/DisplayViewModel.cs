@@ -25,16 +25,10 @@ namespace LightsPacketAction
                 Content = this
             };
 
-            ToggleOverlayCommand = new RelayCommand(x => IsOverlayEnabled = x is bool ? (bool)x : !IsOverlayEnabled);
+            ToggleOverlayCommand = new RelayCommand(x => ToggleOverlay(x));
             CloseCommand = new RelayCommand(x => DisplayWindow.Close());
 
-            DisplayWindow.InputBindings.Add(new KeyBinding(ToggleOverlayCommand, Key.O, ModifierKeys.Control));
-            DisplayWindow.InputBindings.Add(new KeyBinding(new RelayCommand(x => {
-                if (IsOverlayEnabled)
-                    ToggleOverlayCommand.Execute(false);
-                else CloseCommand.Execute(null); 
-            }), Key.Escape, ModifierKeys.None));
-
+            DisplayWindow.InputBindings.Add(new KeyBinding(ToggleOverlayCommand, Key.Escape, ModifierKeys.None));
             //EditDisplay:
             //Change message on double click
         }
@@ -86,6 +80,10 @@ namespace LightsPacketAction
         }
 
         protected Window DisplayWindow { get; }
+
+        protected virtual void ToggleOverlay(object x, bool button=false) {
+            IsOverlayEnabled = x is bool ? (bool)x : !IsOverlayEnabled;
+        }
 
         private void AdjustButtonList() {
             var total = Rows * Columns;

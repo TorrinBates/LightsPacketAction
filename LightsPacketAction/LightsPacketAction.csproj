@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CommonLib\BooleanToVisibilityConverter.cs" />
     <Compile Include="CommonLib\Dialog\DialogFactory.cs" />
     <Compile Include="CommonLib\Dialog\ErrorView.xaml.cs">
       <DependentUpon>ErrorView.xaml</DependentUpon>
@@ -83,10 +84,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Display\EditConfig\EditButtonMessageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Launcher\LauncherView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -108,9 +105,6 @@
       <DependentUpon>DisplayView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Display\DisplayViewModel.cs" />
-    <Compile Include="Display\EditConfig\EditButtonMessageView.xaml.cs">
-      <DependentUpon>EditButtonMessageView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Display\EditConfig\EditButtonMessageViewModel.cs" />
     <Compile Include="Display\EditConfig\EditDisplayConfigurationViewModel.cs" />
     <Compile Include="Display\PreviewConfig\PreviewDisplayConfigurationViewModel.cs" />

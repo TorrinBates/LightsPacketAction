@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 
 namespace LightsPacketAction {
@@ -15,25 +14,17 @@ namespace LightsPacketAction {
 
             CloseCommand = new RelayCommand(x => {
                 var hasConfigChanged = HasConfigChanged();
-                if(!hasConfigChanged || (hasConfigChanged && DialogFactory.CreateYesNoDialog("Exit Configuration", "Are you sure you would like to exit? You will lose any changes you have made since the last time you saved!")))
+                if (!hasConfigChanged || (hasConfigChanged && DialogFactory.CreateYesNoDialog("Exit Configuration", "Unsaved changes exist. Are you sure you want to exit?")))
                     base.CloseCommand.Execute(null);
             });
 
             ButtonClickCommand = new RelayCommand(x => {
-                CustomWindow window = null;
                 var button = (ButtonViewModel)x;
-                var vm = new EditButtonMessageViewModel(button.Message, () => window.Close());
-                window = new CustomWindow(vm, "Edit Button Message");
-                window.Owner = Application.Current.MainWindow;
-                window.MinimizeVisibility = Visibility.Collapsed;
-                window.XVisibility = Visibility.Collapsed;
-                window.Height = 160;
-
-                window.ShowDialog();
-
-                if (vm.Result) {
-                    button.Message = vm.ButtonMessage;
-                }
+                CurrentButton = new EditButtonMessageViewModel(button.Message, (message) => { 
+                    button.Message = message;
+                    base.ToggleOverlay(false);
+                });
+                ToggleOverlay(true, true);
             });
 
             DisplayLines = true;
@@ -44,6 +35,29 @@ namespace LightsPacketAction {
         public override ICommand ButtonClickCommand { get; }
         public ICommand SaveCommand { get; }
         public override ICommand CloseCommand { get; }
+
+        EditButtonMessageViewModel _currentButton;
+        public EditButtonMessageViewModel CurrentButton {
+            get => _currentButton;
+            set {
+                _currentButton = value;
+                OnPropertyChanged("CurrentButton");
+            }
+        }
+
+        bool _editingButton = false;
+        public bool EditingButton {
+            get => _editingButton;
+            set {
+                _editingButton = value;
+                OnPropertyChanged("EditingButton");
+            }
+        }
+
+        protected override void ToggleOverlay(object x, bool button=false) {
+            EditingButton = button;
+            base.ToggleOverlay(x);
+        }
 
         private bool HasConfigChanged() {
             var currentConfig = _configHandler.GetActiveConfig();
