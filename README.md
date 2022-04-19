@@ -6,6 +6,7 @@
 ### Config Editor
 ![Edit Button](/Images/ConfigEditorButton.png?raw=true)
 ![Config Editor](/Images/ConfigEditor.png?raw=true)
+- Config is saved to xml and persists beyond opening and closing of the app.
 
 ### Full Screen
 ![Fullscreen](/Images/Fullscreen.png?raw=true)
@@ -14,7 +15,7 @@
 
 ## SHORTCUTS
 - Ctrl + M: toggles buttons visibility.
-- Esc: opens the menu overlay when in full screen windows.
+- Esc: opens/closes the menu overlay when in full screen windows.
 - Double Tap Right Corner: closes full screen windows.
 
 ## SCENARIO
