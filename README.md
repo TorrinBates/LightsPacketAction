@@ -1,5 +1,17 @@
 # LightsPacketAction
 
+### Windowed
+![Windowed](/Images/Window.png?raw=true)
+
+### Config Editor
+![Edit Button](/Images/ConfigEditorButton.png?raw=true)
+![Config Editor](/Images/ConfigEditor.png?raw=true)
+
+### Full Screen
+![Fullscreen](/Images/Fullscreen.png?raw=true)
+![FullscreenToggle](/Images/FullscreenToggle.png?raw=true)
+![FullscreenMenu](/Images/FullscreenMenu.png?raw=true)
+
 ## SHORTCUTS
 - Ctrl + M: toggles buttons visibility.
 - Esc: opens the menu overlay when in full screen windows.
