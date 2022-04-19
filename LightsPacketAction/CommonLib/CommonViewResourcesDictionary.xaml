@@ -72,7 +72,11 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Name="border" BorderThickness="1" BorderBrush="#c5c5c7" Background="Transparent"/>
+                    <Border Name="border" BorderThickness="1" BorderBrush="#c5c5c7" Background="Transparent">
+                        <Border BorderThickness="1" BorderBrush="Black" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Margin="3" Foreground="Black" FontSize="16" Text="{Binding Path=Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}"/>
+                        </Border>
+                    </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="border" Property="BorderBrush" Value="GreenYellow"/>

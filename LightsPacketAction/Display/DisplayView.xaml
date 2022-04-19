@@ -114,15 +114,14 @@
                                 <Border BorderBrush="#FFC70D" BorderThickness="2" Width="400">
                                     <Grid Background="#FF050505">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="1.75*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="50"/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="White" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="Message: "/>
-                                        <TextBox VerticalAlignment="Center" Grid.Column="1" Height="20" Grid.Row="0" Width="60" HorizontalAlignment="Left" Text="{Binding CurrentButton.ButtonMessage, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock Padding="0,0,0,5" VerticalAlignment="Center" FontSize="16" Foreground="White" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Text="Message: "/>
+                                        <TextBox Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="1" Height="20" Grid.Row="0" Width="190" HorizontalAlignment="Left" Text="{Binding CurrentButton.ButtonMessage, UpdateSourceTrigger=PropertyChanged}"/>
                                     </Grid>
                                 </Border>
                                 <DockPanel HorizontalAlignment="Center" Height="50" Margin="0,15,0,0">

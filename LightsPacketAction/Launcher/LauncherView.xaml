@@ -32,28 +32,39 @@
     </UserControl.Resources>
     
     <StackPanel>
-        <DockPanel>
-            <StackPanel DockPanel.Dock="Left">
-                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#FFC70D" Text="Server Address:"/>
-                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#FFC70D" Text="Destination Port:"/>
-                <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="#FFC70D" Text="Image Overlay:"/>
-            </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2.6*"/>
+            </Grid.ColumnDefinitions>
 
-            <StackPanel DockPanel.Dock="Left">
-                <TextBox Margin="0,0,0,10" BorderBrush="#1D1D1D" Height="19" Width="300" Foreground="#c5c5c7" 
-                         Background="#3F3F46" Text="{Binding ServerAddress, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Margin="0,0,0,10" BorderBrush="#1D1D1D" Height="19" Width="300" Foreground="#c5c5c7" 
-                         Background="#3F3F46" Text="{Binding ServerPort, UpdateSourceTrigger=PropertyChanged}"/>
-                <DockPanel Width="300">
-                    <TextBox DockPanel.Dock="Left" Margin="0,0,6,0" Width="240" 
-                             BorderBrush="#1D1D1D" Height="19" Foreground="#c5c5c7" Background="#3F3F46"
-                             Text="{Binding OverlayImagePath, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Button Style="{StaticResource MainButtonStyle}" Foreground="#1D1D1D" Height="19" Command="{Binding BrowseOverlayImageCommand}">
-                        Browse...
-                    </Button>
-                </DockPanel>
-            </StackPanel>
-        </DockPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" FontSize="14" Foreground="#FFC70D" Padding="0,0,0,13" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Server Address:"/>
+            <TextBox Grid.Column="1" Grid.Row="0" Margin="0,0,0,10" BorderBrush="#1D1D1D" Height="19" Width="295" Foreground="#c5c5c7" 
+                         VerticalAlignment="Center" HorizontalAlignment="Left" Background="#3F3F46" Text="{Binding ServerAddress, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="1" FontSize="14" Foreground="#FFC70D" Padding="0,0,0,13" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Destination Port:"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="0,0,0,10" BorderBrush="#1D1D1D" Height="19" Width="295" Foreground="#c5c5c7" 
+                         VerticalAlignment="Center" HorizontalAlignment="Left" Background="#3F3F46" Text="{Binding ServerPort, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="2" FontSize="14" Foreground="#FFC70D" Padding="0,0,0,4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Image Overlay:"/>
+            <Grid Width="300" Grid.Column="1" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="230"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Margin="0,0,3,0" Width="224" BorderBrush="#1D1D1D" Height="19" Foreground="#c5c5c7" Background="#3F3F46"
+                             VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding OverlayImagePath, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Grid.Column="1" Style="{StaticResource MainButtonStyle}" Foreground="#1D1D1D" Height="19" Margin="0,0,5,0" Command="{Binding BrowseOverlayImageCommand}">
+                    Browse...
+                </Button>
+            </Grid>
+        </Grid>
         <Grid Margin="0,20,0,0" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />

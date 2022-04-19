@@ -19,7 +19,7 @@ namespace LightsPacketAction {
 
                 List<string> buttons = new List<string>();
                 for (var i = 0; i < m.Count; i++)
-                    buttons.Add(m.Item(i).Attributes["message"].InnerText + "\r");
+                    buttons.Add(m.Item(i).Attributes["message"].InnerText);
 
                 SetActiveConfig(new Config(numRows, numColumns, buttons));
             } catch (Exception e) {
