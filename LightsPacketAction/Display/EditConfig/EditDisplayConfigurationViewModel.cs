@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Microsoft.Win32;
+using System.Linq;
 using System.Windows.Input;
 
 namespace LightsPacketAction {
@@ -10,6 +11,25 @@ namespace LightsPacketAction {
             SaveCommand = new RelayCommand(x => HasConfigChanged(), x => {
                 _configHandler.SetActiveConfig(Rows, Columns, Buttons.Select(y => y.Message).ToList());
                 _configHandler.SaveConfig();
+            });
+
+            ImportCommand = new RelayCommand(x => {
+
+            });
+
+            ExportCommand = new RelayCommand(x => {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.FileName = "LPAButtonConfig.xml";
+                sfd.Filter = "XML-File | *.xml";
+                sfd.Title = "Export Button Configuration";
+                sfd.AddExtension = true;
+                sfd.OverwritePrompt = true;
+                sfd.CheckPathExists = true;
+                if (sfd.ShowDialog() == true) {
+                    var result = configHandler.SaveConfig(sfd.FileName);
+                    if (result.ReturnCode != ConfigHandlerReturnCodeType.Success)
+                        DialogFactory.CreateErrorDialog("Export Configuration Failed", "Unable to write to the requested location.");
+                }
             });
 
             CloseCommand = new RelayCommand(x => {
@@ -34,6 +54,8 @@ namespace LightsPacketAction {
 
         public override ICommand ButtonClickCommand { get; }
         public ICommand SaveCommand { get; }
+        public ICommand ImportCommand { get; }
+        public ICommand ExportCommand { get; }
         public override ICommand CloseCommand { get; }
 
         EditButtonMessageViewModel _currentButton;

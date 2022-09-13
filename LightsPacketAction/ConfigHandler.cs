@@ -42,7 +42,7 @@ namespace LightsPacketAction {
 
         public ConfigHandlerReturnCode SaveConfig(string path = C_ConfigPath) {
             try {
-                XmlWriter xmlWriter = XmlWriter.Create(C_ConfigPath);
+                XmlWriter xmlWriter = XmlWriter.Create(path);
 
                 xmlWriter.WriteStartDocument();
                 xmlWriter.WriteStartElement("Config");

@@ -106,7 +106,9 @@
                                     </Grid>
                                 </Border>
                                 <DockPanel HorizontalAlignment="Center" Height="50" Margin="0,15,0,0">
-                                    <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding SaveCommand}" Margin="0,0,20,0" Width="180">Save Configuration</Button>
+                                    <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding SaveCommand}" Margin="0,0,20,0" Width="180">Save</Button>
+                                    <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding ImportCommand}" Margin="0,0,20,0" Width="180">Import</Button>
+                                    <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding ExportCommand}" Margin="0,0,20,0" Width="180">Export</Button>
                                     <Button Style="{StaticResource OverlayButtonStyle}" Command="{Binding CloseCommand}" Width="180">Close Configuration Editor</Button>
                                 </DockPanel>
                             </StackPanel>
