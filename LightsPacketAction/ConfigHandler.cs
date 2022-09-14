@@ -8,46 +8,58 @@ namespace LightsPacketAction {
         const string C_ConfigPath = "config.xml";
         Config _config;
 
-        public ConfigHandlerReturnCode LoadConfig(string path = C_ConfigPath) {
+        public Tuple<int, int, List<string>, ConfigHandlerReturnCode> OpenConfig(string path) {
             XmlDocument doc = new XmlDocument();
-            try {
+            int numRows = 0;
+            int numColumns = 0;
+            List<string> buttons = new List<string>();
+            ConfigHandlerReturnCode rc = new ConfigHandlerReturnCode(ConfigHandlerReturnCodeType.Success);
+
+            try
+            {
                 doc.Load(path);
 
-                int numRows = int.Parse(doc.DocumentElement.SelectSingleNode("/Config/Rows").Attributes["count"]?.InnerText);
-                int numColumns = int.Parse(doc.DocumentElement.SelectSingleNode("/Config/Columns").Attributes["count"]?.InnerText);
+                numRows = int.Parse(doc.DocumentElement.SelectSingleNode("/Config/Rows").Attributes["count"]?.InnerText);
+                numColumns = int.Parse(doc.DocumentElement.SelectSingleNode("/Config/Columns").Attributes["count"]?.InnerText);
                 XmlNodeList m = doc.DocumentElement.SelectSingleNode("/Config/Buttons").ChildNodes;
 
-                List<string> buttons = new List<string>();
                 for (var i = 0; i < m.Count; i++)
                     buttons.Add(m.Item(i).Attributes["message"].InnerText);
-
-                SetActiveConfig(new Config(numRows, numColumns, buttons));
-            } catch (Exception e) {
-                if (e is FileNotFoundException)
-                    return new ConfigHandlerReturnCode(ConfigHandlerReturnCodeType.FileNotFound);
-                else if (e is IOException) 
-                    return new ConfigHandlerReturnCode(ConfigHandlerReturnCodeType.FileIOException, e.Message);
-                else if (e is NullReferenceException || e is XmlException || e is ArgumentNullException) 
-                    return new ConfigHandlerReturnCode(ConfigHandlerReturnCodeType.InvalidConfiguration);
-                return new ConfigHandlerReturnCode(ConfigHandlerReturnCodeType.Unknown, e.Message);
             }
-            
-            return new ConfigHandlerReturnCode(ConfigHandlerReturnCodeType.Success);
+            catch (Exception e)
+            {
+                if (e is FileNotFoundException)
+                    rc = new ConfigHandlerReturnCode(ConfigHandlerReturnCodeType.FileNotFound);
+                else if (e is IOException)
+                    rc = new ConfigHandlerReturnCode(ConfigHandlerReturnCodeType.FileIOException, e.Message);
+                else if (e is NullReferenceException || e is XmlException || e is ArgumentNullException)
+                    rc = new ConfigHandlerReturnCode(ConfigHandlerReturnCodeType.InvalidConfiguration);
+                else 
+                    rc = new ConfigHandlerReturnCode(ConfigHandlerReturnCodeType.Unknown, e.Message);
+            }
+
+            return new Tuple<int, int, List<string>, ConfigHandlerReturnCode>(numRows, numColumns, buttons, rc);
+        } 
+
+        public ConfigHandlerReturnCode LoadConfig(string path=C_ConfigPath) {
+            var configInfo = OpenConfig(path);
+            SetActiveConfig(configInfo.Item1, configInfo.Item2, configInfo.Item3);
+            return configInfo.Item4;
         }
 
         //Prevent accidental modification to config
         public Config GetActiveConfig() => _config == null ? null : new Config(_config);
-        public void SetActiveConfig(Config config) => _config = new Config(config);
         public void SetActiveConfig(int rows, int columns, List<string> buttons) => _config = new Config(rows, columns, buttons);
 
-        public ConfigHandlerReturnCode SaveConfig(string path = C_ConfigPath) {
+        public ConfigHandlerReturnCode SaveConfig(string path = C_ConfigPath, Config config=null) {
+            var tmpConfig = config == null ? _config : config;
             try {
                 XmlWriter xmlWriter = XmlWriter.Create(path);
 
                 xmlWriter.WriteStartDocument();
                 xmlWriter.WriteStartElement("Config");
 
-                var row1Elements = new[] { new[] { "Rows", _config.RowCount.ToString() }, new[] { "Columns", _config.ColumnCount.ToString() } };
+                var row1Elements = new[] { new[] { "Rows", tmpConfig.RowCount.ToString() }, new[] { "Columns", tmpConfig.ColumnCount.ToString() } };
                 foreach (var element in row1Elements) {
                     xmlWriter.WriteStartElement(element[0]);
                     xmlWriter.WriteAttributeString("count", element[1]);
@@ -55,7 +67,7 @@ namespace LightsPacketAction {
                 }
 
                 xmlWriter.WriteStartElement("Buttons");
-                foreach (var button in _config.Buttons) {
+                foreach (var button in tmpConfig.Buttons) {
                     xmlWriter.WriteStartElement("Button");
                     xmlWriter.WriteAttributeString("message", button);
                     xmlWriter.WriteEndElement();

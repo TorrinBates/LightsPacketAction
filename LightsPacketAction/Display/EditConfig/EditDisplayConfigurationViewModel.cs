@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Linq;
 using System.Windows.Input;
 
@@ -14,7 +15,21 @@ namespace LightsPacketAction {
             });
 
             ImportCommand = new RelayCommand(x => {
-
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = "XML-File | *.xml";
+                ofd.Title = "Import Button Configuration";
+                if (ofd.ShowDialog() == true) {
+                    var result = configHandler.OpenConfig(ofd.FileName);
+                    if (result.Item4.ReturnCode != ConfigHandlerReturnCodeType.Success)
+                        DialogFactory.CreateErrorDialog("Export Configuration Failed", result.Item4.Reason);
+                    else {
+                        Rows = result.Item1;
+                        Columns = result.Item2;
+                        Buttons.Clear();
+                        foreach (var message in result.Item3)
+                            Buttons.Add(new ButtonViewModel(message)); 
+                    }
+                }
             });
 
             ExportCommand = new RelayCommand(x => {
@@ -22,13 +37,10 @@ namespace LightsPacketAction {
                 sfd.FileName = "LPAButtonConfig.xml";
                 sfd.Filter = "XML-File | *.xml";
                 sfd.Title = "Export Button Configuration";
-                sfd.AddExtension = true;
-                sfd.OverwritePrompt = true;
-                sfd.CheckPathExists = true;
                 if (sfd.ShowDialog() == true) {
-                    var result = configHandler.SaveConfig(sfd.FileName);
+                    var result = configHandler.SaveConfig(sfd.FileName, new Config(Rows, Columns, Buttons.Select(b => b.Message).ToList()));
                     if (result.ReturnCode != ConfigHandlerReturnCodeType.Success)
-                        DialogFactory.CreateErrorDialog("Export Configuration Failed", "Unable to write to the requested location.");
+                        DialogFactory.CreateErrorDialog("Export Configuration Failed", result.Reason);
                 }
             });
 
